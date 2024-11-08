@@ -30,10 +30,8 @@ const initState: NoteStateInterface = {
     recordsToRender: []
 };
 
-const reducer = ( state: NoteStateInterface = initState, action: any): NoteStateInterface => {
-    const { type, payload } = action;
-
-    switch (type) {
+const reducer = (state: NoteStateInterface = initState, action: any): NoteStateInterface => {
+    switch (action.type) {
         case actions.CLEAR_FIELD_STATUS:
             return {
                 ...state,
@@ -59,7 +57,10 @@ const reducer = ( state: NoteStateInterface = initState, action: any): NoteState
                 ...state,
                 params: {
                     ...state.params,
-                    author: payload
+                    author: {
+                        ...state.params.author,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_COMPLETED:
@@ -67,7 +68,10 @@ const reducer = ( state: NoteStateInterface = initState, action: any): NoteState
                 ...state,
                 params: {
                     ...state.params,
-                    completed: payload
+                    completed: {
+                        ...state.params.completed,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_CONTENT:
@@ -75,7 +79,10 @@ const reducer = ( state: NoteStateInterface = initState, action: any): NoteState
                 ...state,
                 params: {
                     ...state.params,
-                    content: payload
+                    content: {
+                        ...state.params.content,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_DATE:
@@ -83,25 +90,31 @@ const reducer = ( state: NoteStateInterface = initState, action: any): NoteState
                 ...state,
                 params: {
                     ...state.params,
-                    date: payload
+                    date: {
+                        ...state.params.date,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_LOADING:
             return {
                 ...state,
-                loading: payload
+                loading: action.payload
             };
         case actions.SET_RECORDS_TO_RENDER:
             return {
                 ...state,
-                recordsToRender: payload
+                recordsToRender: action.payload
             };
         case actions.SET_REGISTRATION_DATE:
             return {
                 ...state,
                 params: {
                     ...state.params,
-                    registrationDate: payload
+                    registrationDate: {
+                        ...state.params.registrationDate,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_STATUS:
@@ -109,7 +122,10 @@ const reducer = ( state: NoteStateInterface = initState, action: any): NoteState
                 ...state,
                 params: {
                     ...state.params,
-                    status: payload
+                    status: {
+                        ...state.params.status,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_TITLE:
@@ -117,7 +133,10 @@ const reducer = ( state: NoteStateInterface = initState, action: any): NoteState
                 ...state,
                 params: {
                     ...state.params,
-                    title: payload
+                    title: {
+                        ...state.params.title,
+                        value: action.payload
+                    }
                 }
             };
         default:

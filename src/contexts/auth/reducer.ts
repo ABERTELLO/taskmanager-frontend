@@ -73,7 +73,10 @@ const reducer = (state: AuthStateInterface = initState, action: ActionInterface)
                 ...state,
                 loginParams: {
                     ...state.loginParams,
-                    email: action.payload
+                    email: {
+                        ...state.loginParams.email,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_LOGIN_PASSWORD:
@@ -81,7 +84,10 @@ const reducer = (state: AuthStateInterface = initState, action: ActionInterface)
                 ...state,
                 loginParams: {
                     ...state.loginParams,
-                    password: action.payload
+                    password: {
+                        ...state.loginParams.password,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_LOGIN_REMEMBER_ME:
@@ -89,7 +95,10 @@ const reducer = (state: AuthStateInterface = initState, action: ActionInterface)
                 ...state,
                 loginParams: {
                     ...state.loginParams,
-                    rememberMe: action.payload
+                    rememberMe: {
+                        ...state.loginParams.rememberMe,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_REGISTRY_CONFIRM_EMAIL:
@@ -97,7 +106,10 @@ const reducer = (state: AuthStateInterface = initState, action: ActionInterface)
                 ...state,
                 registryParams: {
                     ...state.registryParams,
-                    confirmEmail: action.payload
+                    confirmEmail: {
+                        ...state.registryParams.confirmEmail,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_REGISTRY_CONFIRM_PASSWORD:
@@ -105,7 +117,10 @@ const reducer = (state: AuthStateInterface = initState, action: ActionInterface)
                 ...state,
                 registryParams: {
                     ...state.registryParams,
-                    confirmPassword: action.payload
+                    confirmPassword: {
+                        ...state.registryParams.confirmPassword,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_REGISTRY_EMAIL:
@@ -113,7 +128,10 @@ const reducer = (state: AuthStateInterface = initState, action: ActionInterface)
                 ...state,
                 registryParams: {
                     ...state.registryParams,
-                    email: action.payload
+                    email: {
+                        ...state.registryParams.email,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_REGISTRY_PASSWORD:
@@ -121,7 +139,10 @@ const reducer = (state: AuthStateInterface = initState, action: ActionInterface)
                 ...state,
                 registryParams: {
                     ...state.registryParams,
-                    password: action.payload
+                    password: {
+                        ...state.registryParams.password,
+                        value: action.payload
+                    }
                 }
             };
         default:

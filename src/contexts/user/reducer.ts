@@ -11,7 +11,7 @@ const actions = {
     SET_LOADING: 'SET_LOADING',
     SET_PASSWORD: 'SET_PASSWORD',
     SET_RECORDS_TO_RENDER: 'SET_RECORDS_TO_RENDER',
-    SET_ROLES: 'SET_ROLES'
+    SET_ROLE: 'SET_ROLE'
 };
 
 const initState: UserStateInterface = {
@@ -21,15 +21,13 @@ const initState: UserStateInterface = {
         fullName: { status: null, value: '' },
         isActive: { status: null, value: false },
         password: { status: null, value: '' },
-        roles: { status: null, value: [] },
+        role: { status: null, value: 'user' },
     },
     recordsToRender: []
 };
 
 const reducer = (state: UserStateInterface = initState, action: any): UserStateInterface => {
-    const { type, payload } = action;
-
-    switch (type) {
+    switch (action.type) {
         case actions.CLEAR_FIELD_STATUS:
             return {
                 ...state,
@@ -38,7 +36,7 @@ const reducer = (state: UserStateInterface = initState, action: any): UserStateI
                     fullName: { ...state.params.fullName, status: null },
                     isActive: { ...state.params.isActive, status: null },
                     password: { ...state.params.password, status: null },
-                    roles: { ...state.params.roles, status: null }
+                    role: { ...state.params.role, status: null }
                 }
             };
         case actions.CLEAR_PARAMS:
@@ -53,7 +51,10 @@ const reducer = (state: UserStateInterface = initState, action: any): UserStateI
                 ...state,
                 params: {
                     ...state.params,
-                    email: payload
+                    email: {
+                        ...state.params.email,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_FULL_NAME:
@@ -61,7 +62,10 @@ const reducer = (state: UserStateInterface = initState, action: any): UserStateI
                 ...state,
                 params: {
                     ...state.params,
-                    fullName: payload
+                    fullName: {
+                        ...state.params.fullName,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_IS_ACTIVE:
@@ -69,33 +73,42 @@ const reducer = (state: UserStateInterface = initState, action: any): UserStateI
                 ...state,
                 params: {
                     ...state.params,
-                    isActive: payload
+                    isActive: {
+                        ...state.params.isActive,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_LOADING:
             return {
                 ...state,
-                loading: payload
+                loading: action.payload
             };
         case actions.SET_PASSWORD:
             return {
                 ...state,
                 params: {
                     ...state.params,
-                    password: payload
+                    password: {
+                        ...state.params.password,
+                        value: action.payload
+                    }
                 }
             };
         case actions.SET_RECORDS_TO_RENDER:
             return {
                 ...state,
-                recordsToRender: payload
+                recordsToRender: action.payload
             };
-        case actions.SET_ROLES:
+        case actions.SET_ROLE:
             return {
                 ...state,
                 params: {
                     ...state.params,
-                    roles: payload
+                    role: {
+                        ...state.params.role,
+                        value: action.payload
+                    }
                 }
             };
         default:

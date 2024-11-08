@@ -1,9 +1,13 @@
 import views from '../views'
 
+const {
+    Login
+} = views
+
 
 const publicRoutesData = [
     {
-        element: views.Login,
+        element: <Login />,
         path: '/login'
     }
 ]

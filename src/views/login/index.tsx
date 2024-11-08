@@ -2,11 +2,11 @@
 import components from '../../components';
 import contexts from '../../contexts';
 
-const { Input } = components
+const { Input } = components;
 
 
 const Login = () => {
-    const { actions, auth_state, auth_dispatch } = contexts.useAuthContext()
+    const { actions, auth_state, auth_dispatch } = contexts.useAuthContext();
 
     return (
         <div className='loginContainer'>
@@ -15,6 +15,7 @@ const Login = () => {
                 dispatchType={actions.SET_LOGIN_EMAIL}
                 inputType='text'
                 label='Email'
+                placeholder='email@example.com'
                 value={auth_state.loginParams.email.value}
             />
         </div>

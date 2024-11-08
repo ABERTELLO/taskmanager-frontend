@@ -8,6 +8,31 @@
     grid-auto-columns: 1fr;    
 }
 
+.input {
+    border: solid 1px;
+    border-radius: 0.4rem;
+    font-size: 1.5rem;
+    height: 1.5rem;
+    outline: 0;
+    padding: 0.3rem;
+    
+}
+
+.input::placeholder {
+    opacity: 0.5;
+}
+
+.inputContainer {
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.inputLabel {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
 .loginContainer {
     margin-left: 40%;
     margin-right: 40%;

@@ -1,17 +1,23 @@
 import views from '../views'
 
+const {
+    Home,
+    Notes,
+    Users
+} = views
+
 
 const privateRoutesData = [
     {
-        element: views.Home,
+        element: <Home />,
         path: '/home'
     },
     {
-        element: views.Notes,
+        element: <Notes />,
         path: '/notes'
     },
     {
-        element: views.Users,
+        element: <Users />,
         path: '/users'
     }
 ]

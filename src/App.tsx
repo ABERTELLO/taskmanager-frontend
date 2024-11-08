@@ -3,23 +3,15 @@ import './App.css';
 import AppRouter from './routes';
 import contexts from './contexts';
 
-const {
-    AuthContext,
-    NoteContext,
-    UserContext,
-} = contexts;
+const { StoreContext } = contexts;
 
 
 function App() {
     return (
         <div className='App'>
-            <UserContext>
-                <NoteContext>
-                    <AuthContext>
-                        <AppRouter />
-                    </AuthContext>
-                </NoteContext>
-            </UserContext>
+            <StoreContext>
+                <AppRouter />
+            </StoreContext>
         </div>
     );
 };

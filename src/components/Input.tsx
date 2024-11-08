@@ -10,11 +10,12 @@ const Input = (data: InputDataInterface) => {
         dispatchType,
         inputType,
         label,
+        placeholder,
         value
     } = data;
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        let payload: any;
+        let payload: string | number;
         if (inputType === 'date') payload = paramsFormat(e.target.valueAsDate);
         else if (inputType === 'number') payload = e.target.valueAsNumber;
         else if (inputType === 'text') payload = e.target.value;
@@ -23,12 +24,24 @@ const Input = (data: InputDataInterface) => {
     };
 
     return (
-        <input
-            onChange={onChange}
-            placeholder={label}
-            type={inputType}
-            value={value}
-        />
+        <div className='inputContainer'>
+            {
+                label && (
+                    <div className='inputLabel '>
+                        {label}
+                    </div>
+                )
+            }
+            <div>
+                <input
+                    className='input'
+                    onChange={onChange}
+                    placeholder={placeholder}
+                    type={inputType}
+                    value={value}
+                />
+            </div>
+        </div>
     );
 };
 

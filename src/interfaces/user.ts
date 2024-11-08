@@ -11,7 +11,7 @@ interface UserActionsInterface {
     readonly SET_LOADING: string;
     readonly SET_PASSWORD: string;
     readonly SET_RECORDS_TO_RENDER: string;
-    readonly SET_ROLES: string;
+    readonly SET_ROLE: string;
 };
 
 interface UserBooleanParam {
@@ -19,9 +19,9 @@ interface UserBooleanParam {
     readonly value: boolean;
 };
 
-interface UserRolesParam {
+interface UserRoleParam {
     readonly status: null | string;
-    readonly value: ['admin', 'user'] | [];
+    readonly value: 'admin' | 'user';
 };
 
 interface UserStringParam {
@@ -40,7 +40,7 @@ export interface UserParamsInterface {
     readonly fullName: UserStringParam;
     readonly isActive: UserBooleanParam;
     readonly password: UserStringParam;
-    readonly roles: UserRolesParam;
+    readonly role: UserRoleParam;
 };
 
 
