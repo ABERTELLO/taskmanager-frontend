@@ -27,7 +27,7 @@ const objDateFormat = (stringDate: string | null): Date | void => {
     return formattedDate;
 };
 
-const paramsFormat = (unformattedDate: Date | null): string => {
+const yyyymmddhhmmss = (unformattedDate: Date | null): string => {
     if (!unformattedDate) return ''
     const date = new Date(unformattedDate);
     const year = date.getFullYear().toString();
@@ -43,7 +43,7 @@ const paramsFormat = (unformattedDate: Date | null): string => {
 const dateHelper = {
     localFormat,
     objDateFormat,
-    paramsFormat
+    yyyymmddhhmmss
 };
 
 export default dateHelper;

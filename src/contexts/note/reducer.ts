@@ -1,22 +1,23 @@
-import { NoteStateInterface } from '../../interfaces';
+// Common
+import { NoteState, NoteStatus } from '../../interfaces';
 
 
-const actions = {
-    CLEAR_FIELD_STATUS: 'CLEAR_FIELD_STATUS',
-    CLEAR_PARAMS: 'CLEAR_PARAMS',
-    CLEAR_STATE: 'CLEAR_STATE',
-    SET_AUTHOR: 'SET_AUTHOR',
-    SET_COMPLETED: 'SET_COMPLETED',
-    SET_CONTENT: 'SET_CONTENT',
-    SET_DATE: 'SET_DATE',
-    SET_LOADING: 'SET_LOADING',
-    SET_RECORDS_TO_RENDER: 'SET_RECORDS_TO_RENDER',
-    SET_REGISTRATION_DATE: 'SET_REGISTRATION_DATE',
-    SET_STATUS: 'SET_STATUS',
-    SET_TITLE: 'SET_TITLE'
+enum actions {
+    CLEAR_FIELD_STATUS = 'CLEAR_FIELD_STATUS',
+    CLEAR_PARAMS = 'CLEAR_PARAMS',
+    CLEAR_STATE = 'CLEAR_STATE',
+    SET_AUTHOR = 'SET_AUTHOR',
+    SET_COMPLETED = 'SET_COMPLETED',
+    SET_CONTENT = 'SET_CONTENT',
+    SET_DATE = 'SET_DATE',
+    SET_LOADING = 'SET_LOADING',
+    SET_RECORDS_TO_RENDER = 'SET_RECORDS_TO_RENDER',
+    SET_REGISTRATION_DATE = 'SET_REGISTRATION_DATE',
+    SET_STATUS = 'SET_STATUS',
+    SET_TITLE = 'SET_TITLE'
 };
 
-const initState: NoteStateInterface = {
+const initState: NoteState = {
     loading: false,
     params: {
         author: { status: null, value: '' },
@@ -24,13 +25,13 @@ const initState: NoteStateInterface = {
         content: { status: null, value: '' },
         date: { status: null, value: '' },
         registrationDate: { status: null, value: '' },
-        status: { status: null, value: [] },
+        status: { status: null, value: NoteStatus.regular },
         title: { status: null, value: '' },
     },
     recordsToRender: []
 };
 
-const reducer = (state: NoteStateInterface = initState, action: any): NoteStateInterface => {
+const reducer = (state: NoteState = initState, action: any): NoteState => {
     switch (action.type) {
         case actions.CLEAR_FIELD_STATUS:
             return {

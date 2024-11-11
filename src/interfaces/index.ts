@@ -1,72 +1,91 @@
 import {
-    AuthContextInterface,
+    AuthContext,
     AuthLoginParams,
-    AuthRegistryParamsInterface,
-    AuthStateInterface
+    AuthRegistryParams,
+    AuthState
 } from './auth';
 import {
-    CancelButtonDataInterface,
-    SaveButtonDataInterface
+    CancelButtonData,
+    SaveButtonData,
+    SaveService,
+    SaveType
 } from './button';
 import {
-    ActionInterface,
-    ContextPropsInterface
+    Action,
+    ContextProps
 } from './context';
-import { FormDataInterface } from './form';
-import { InputDataInterface } from './input';
+import { FormData } from './form';
 import {
-    NoteContextInterface,
-    NoteParamsInterface,
-    NoteStateInterface,
-    SavedNoteInterface
+    InputData,
+    InputTypes,
+    InputTypesForValues,
+    InputValueTypes
+} from './input';
+import {
+    NoteContext,
+    NoteParams,
+    NoteState,
+    NoteStatus,
+    SavedNote
 } from './note';
 import {
     RequestInitDataType,
-    RequestParamsInterface
+    RequestParams
 } from './request';
-import { RouteInterface } from './route';
+import { Route } from './route';
 import {
-    SelectDataInterface,
-    SelectOptionInterface
+    SelectData,
+    SelectOption
 } from './select';
 import {
-    AuthServicesInterface,
-    ServicesInterface
+    AuthServices,
+    Services
 } from './service';
 import {
-    SavedUserInterface,
-    UserContextInterface,
-    UserParamsInterface,
-    UserStateInterface
+    SavedUser,
+    UserContext,
+    UserParams,
+    UserRoles,
+    UserState
 } from './user';
-import { TextAreaDataInterface } from './textArea';
+import { TextAreaData } from './textArea';
 
+
+export { // Enums for string literals
+    InputTypes,
+    InputTypesForValues,
+    InputValueTypes,
+    NoteStatus,
+    SaveService,
+    SaveType,
+    UserRoles
+}
 
 export type {
-    ActionInterface,
-    AuthContextInterface,
+    Action,
+    AuthContext,
     AuthLoginParams,
-    AuthRegistryParamsInterface,
-    AuthServicesInterface,
-    AuthStateInterface,
-    CancelButtonDataInterface,
-    ContextPropsInterface,
-    FormDataInterface,
-    InputDataInterface,
-    NoteContextInterface,
-    NoteParamsInterface,
-    NoteStateInterface,
+    AuthRegistryParams,
+    AuthServices,
+    AuthState,
+    CancelButtonData,
+    ContextProps,
+    FormData,
+    InputData,
+    UserContext,
+    NoteContext,
+    NoteParams,
+    NoteState,
     RequestInitDataType,
-    RequestParamsInterface,
-    RouteInterface,
-    SaveButtonDataInterface,
-    SavedNoteInterface,
-    SavedUserInterface,
-    SelectDataInterface,
-    SelectOptionInterface,
-    ServicesInterface,
-    TextAreaDataInterface,
-    UserContextInterface,
-    UserParamsInterface,
-    UserStateInterface
+    RequestParams,
+    Route,
+    SaveButtonData,
+    SavedNote,
+    SavedUser,
+    SelectData,
+    SelectOption,
+    Services,
+    TextAreaData,
+    UserParams,
+    UserState
 };

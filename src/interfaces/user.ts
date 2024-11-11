@@ -1,18 +1,9 @@
-import { ActionInterface } from './context';
+// Common
+import user from '../contexts/user/reducer';
 
+// Resource
+import { Action } from './context';
 
-interface UserActionsInterface {
-    readonly CLEAR_FIELD_STATUS: string;
-    readonly CLEAR_PARAMS: string;
-    readonly CLEAR_STATE: string;
-    readonly SET_EMAIL: string;
-    readonly SET_FULL_NAME: string;
-    readonly SET_IS_ACTIVE: string;
-    readonly SET_LOADING: string;
-    readonly SET_PASSWORD: string;
-    readonly SET_RECORDS_TO_RENDER: string;
-    readonly SET_ROLE: string;
-};
 
 interface UserBooleanParam {
     readonly status: null | string;
@@ -21,7 +12,7 @@ interface UserBooleanParam {
 
 interface UserRoleParam {
     readonly status: null | string;
-    readonly value: 'admin' | 'user';
+    readonly value: UserRoles;
 };
 
 interface UserStringParam {
@@ -29,13 +20,18 @@ interface UserStringParam {
     readonly value: string;
 };
 
-export interface UserContextInterface {
-    readonly actions: UserActionsInterface;
-    readonly users_state: UserStateInterface;
-    readonly users_dispatch: React.Dispatch<ActionInterface>;
+export enum UserRoles {
+    admin = 'admin',
+    user = 'user'
 }
 
-export interface UserParamsInterface {
+export interface UserContext {
+    readonly actions: typeof user.actions;
+    readonly users_state: UserState;
+    readonly users_dispatch: React.Dispatch<Action>;
+}
+
+export interface UserParams {
     readonly email: UserStringParam;
     readonly fullName: UserStringParam;
     readonly isActive: UserBooleanParam;
@@ -44,13 +40,13 @@ export interface UserParamsInterface {
 };
 
 
-export interface UserStateInterface {
+export interface UserState {
     readonly loading: boolean;
-    readonly params: UserParamsInterface;
-    readonly recordsToRender: SavedUserInterface[];
+    readonly params: UserParams;
+    readonly recordsToRender: SavedUser[];
 };
 
-export interface SavedUserInterface extends UserParamsInterface {
+export interface SavedUser extends UserParams {
     readonly _id: string;
     readonly __v: number;
 };

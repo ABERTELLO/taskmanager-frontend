@@ -1,9 +1,9 @@
 // Common
 import { useNavigate } from 'react-router-dom';
-import { CancelButtonDataInterface } from '../interfaces';
+import { CancelButtonData } from '../interfaces';
 
 
-const CancelButton = (data: CancelButtonDataInterface) => {
+const CancelButton = (data: CancelButtonData) => {
     const {
         dispatch,
         dispatchType,
@@ -21,7 +21,7 @@ const CancelButton = (data: CancelButtonDataInterface) => {
             className='cancelButton'
             onClick={onClick}
         >
-            Cancelar
+            Cancel
         </ button>
     );
 };

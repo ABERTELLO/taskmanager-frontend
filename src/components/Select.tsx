@@ -1,7 +1,7 @@
-import { SelectOptionInterface, SelectDataInterface } from '../interfaces';
+import { SelectOption, SelectData } from '../interfaces';
 
 
-const Select = (data: SelectDataInterface) => {
+const Select = (data: SelectData) => {
     const {
         dispatch,
         dispatchType,
@@ -11,7 +11,7 @@ const Select = (data: SelectDataInterface) => {
     } = data;
 
     const selectOptions = optionsData.map(
-        (optionData: SelectOptionInterface, index: number) => {
+        (optionData: SelectOption, index: number) => {
             const key = 'select_option_' + index;
             const option = (
                 <option

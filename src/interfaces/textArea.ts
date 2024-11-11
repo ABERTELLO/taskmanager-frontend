@@ -1,8 +1,9 @@
-import { ActionInterface } from './context';
+// Resource
+import { Action } from './context';
 
 
-export interface TextAreaDataInterface {
-    readonly dispatch: React.Dispatch<ActionInterface>;
+export interface TextAreaData {
+    readonly dispatch: React.Dispatch<Action>;
     readonly dispatchType: string;
     readonly label: string;
     readonly rows: number;

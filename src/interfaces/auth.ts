@@ -1,20 +1,9 @@
-import { ActionInterface } from './context';
+// Common
+import auth from '../contexts/auth/reducer';
 
+// Resource
+import { Action } from './context';
 
-interface AuthActionsInterface {
-    readonly CLEAR_FIELD_STATUS: string;
-    readonly CLEAR_LOGIN_PARAMS: string;
-    readonly CLEAR_REGISTRY_PARAMS: string;
-    readonly CLEAR_STATE: string;
-    readonly SET_LOADING: string;
-    readonly SET_LOGIN_EMAIL: string;
-    readonly SET_LOGIN_PASSWORD: string;
-    readonly SET_LOGIN_REMEMBER_ME: string;
-    readonly SET_REGISTRY_CONFIRM_EMAIL: string;
-    readonly SET_REGISTRY_CONFIRM_PASSWORD: string;
-    readonly SET_REGISTRY_EMAIL: string;
-    readonly SET_REGISTRY_PASSWORD: string;
-};
 
 interface AuthBooleanParam {
     readonly status: null | string;
@@ -26,10 +15,10 @@ interface AuthStringParam {
     readonly value: string;
 };
 
-export interface AuthContextInterface {
-    readonly actions: AuthActionsInterface;
-    readonly auth_state: AuthStateInterface;
-    readonly auth_dispatch: React.Dispatch<ActionInterface>;
+export interface AuthContext {
+    readonly actions: typeof auth.actions;
+    readonly auth_state: AuthState;
+    readonly auth_dispatch: React.Dispatch<Action>;
 };
 
 export interface AuthLoginParams {
@@ -38,15 +27,17 @@ export interface AuthLoginParams {
     readonly rememberMe: AuthBooleanParam;
 };
 
-export interface AuthRegistryParamsInterface {
+export interface AuthRegistryParams {
     readonly confirmEmail: AuthStringParam;
     readonly confirmPassword: AuthStringParam;
     readonly email: AuthStringParam;
     readonly password: AuthStringParam;
 };
 
-export interface AuthStateInterface {
+export interface AuthState {
     readonly loading: boolean;
+    readonly loginError: { message: string, status: boolean };
     readonly loginParams: AuthLoginParams;
-    readonly registryParams: AuthRegistryParamsInterface;
+    readonly registryError: { message: string, status: boolean };
+    readonly registryParams: AuthRegistryParams;
 };

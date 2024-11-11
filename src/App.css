@@ -1,40 +1,96 @@
+.button {
+    background-color: rgb(27, 27, 239);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.cancelButton {
+    background-color: rgb(255, 27, 27);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.form {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
+}
+
 .formButtons {
     display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
 }
 
 .formFields {
     display: grid;
     gap: 10px;
-    grid-auto-columns: 1fr;    
+    grid-template-columns: 1fr;
 }
 
 .input {
     border: solid 1px;
-    border-radius: 0.4rem;
-    font-size: 1.5rem;
-    height: 1.5rem;
+    border-radius: 5px;
+    font-size: 23px;
+    height: 23px;
     outline: 0;
-    padding: 0.3rem;
-    
+    padding: 5px;
+    width: 100%;
 }
 
 .input::placeholder {
     opacity: 0.5;
 }
 
-.inputContainer {
+.inputComponent {
     align-items: center;
     display: flex;
-    width: 100%;
+    justify-content: center;
+}
+
+.inputContainer {
+    padding-right: 10px;
+}
+
+.inputContainerPercentage {
+    width: 75%;
 }
 
 .inputLabel {
-    font-size: 1.5rem;
+    font-size: 23px;
     margin-right: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.inputLabelPercentage {
+    width: 25%;
 }
 
 .loginContainer {
-    margin-left: 40%;
-    margin-right: 40%;
-    width: 20%;
+    border: solid 1px;
+    border-radius: 5px;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding: 20px;
+    width: 30%;
+}
+
+.saveButton {
+    background-color: rgb(10, 199, 10);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: bold;
+    width: 100%;
 }

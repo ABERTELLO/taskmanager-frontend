@@ -1,8 +1,9 @@
+// Resource
 import { AuthLoginParams } from './auth';
-import { NoteParamsInterface, SavedNoteInterface } from './note';
-import { UserParamsInterface, SavedUserInterface } from './user';
+import { NoteParams, SavedNote } from './note';
+import { UserParams, SavedUser } from './user';
 
-export interface RequestParamsInterface {
+export interface RequestParams {
     readonly filters: object;
     readonly limit: number;
     readonly page: number;
@@ -11,7 +12,7 @@ export interface RequestParamsInterface {
 export type RequestInitDataType =
     AuthLoginParams
     | null
-    | NoteParamsInterface
-    | SavedNoteInterface
-    | UserParamsInterface
-    | SavedUserInterface
+    | NoteParams
+    | SavedNote
+    | SavedUser
+    | UserParams

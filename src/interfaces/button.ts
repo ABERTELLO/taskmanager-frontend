@@ -1,14 +1,26 @@
-import { ActionInterface } from './context';
+// Resource
+import { Action } from './context';
 
 
-export interface CancelButtonDataInterface {
-    readonly dispatch?: React.Dispatch<ActionInterface>;
+export enum SaveService {
+    auth = 'auth',
+    notes = 'notes',
+    users = 'users'
+};
+
+export enum SaveType {
+    save = 'save',
+    update = 'update'
+};
+
+export interface CancelButtonData {
+    readonly dispatch?: React.Dispatch<Action>;
     readonly dispatchType?: string;
     readonly redirectPath: string;
 };
 
-export interface SaveButtonDataInterface {
+export interface SaveButtonData {
     readonly objToSave: any;
-    readonly saveType: string;
-    readonly service: string;
+    readonly saveType: SaveType;
+    readonly service: SaveService;
 };

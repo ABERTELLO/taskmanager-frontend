@@ -1,8 +1,8 @@
-export interface ActionInterface {
+export interface Action {
     readonly payload?: any;
     readonly type: string;
 }
 
-export interface ContextPropsInterface {
+export interface ContextProps {
     children: React.JSX.Element;
 };

@@ -1,21 +1,21 @@
 // Common
-import { ContextPropsInterface } from '../interfaces';
+import { ContextProps } from '../interfaces';
 
 // Resource
-import { AuthContext, useAuthContext } from './auth/contextProvider';
-import { NoteContext, useNoteContext } from './note/contextProvider';
-import { UserContext, useUserContext } from './user/contextProvider';
+import { AuthContextProvider, useAuthContext } from './auth/contextProvider';
+import { NoteContextProvider, useNoteContext } from './note/contextProvider';
+import { UserContextProvider, useUserContext } from './user/contextProvider';
 
 
-const StoreContext = (props: ContextPropsInterface) => {
+const StoreContext = (props: ContextProps) => {
     return (
-        <AuthContext>
-            <NoteContext>
-                <UserContext>
+        <AuthContextProvider>
+            <NoteContextProvider>
+                <UserContextProvider>
                     {props.children}
-                </UserContext>
-            </NoteContext>
-        </AuthContext>
+                </UserContextProvider>
+            </NoteContextProvider>
+        </AuthContextProvider>
     )
 }
 

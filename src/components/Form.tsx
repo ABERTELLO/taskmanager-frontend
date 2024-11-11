@@ -1,15 +1,16 @@
 // Common
-import { FormDataInterface } from '../interfaces/form';
+import { FormData } from '../interfaces/form';
 
 // Resource
 import CancelButton from './CancelButton';
 import Input from './Input';
+import LoginButton from './LoginButton';
 import SaveButton from './SaveButton';
 import Select from './Select';
 import TextArea from './TextArea';
 
 
-const Form = (data: FormDataInterface) => {
+const Form = (data: FormData) => {
     const {
         cancelButtonData,
         formFooterText,
@@ -23,22 +24,33 @@ const Form = (data: FormDataInterface) => {
 
     const buttons = (
         <div className='formButtons'>
-            <div>
-                <CancelButton
-                    dispatch={cancelButtonData.dispatch}
-                    dispatchType={cancelButtonData.dispatchType}
-                    redirectPath={cancelButtonData.redirectPath}
-                />
-            </div>
-            <div>
-                <SaveButton
-                    objToSave={saveButtonData.objToSave}
-                    saveType={saveButtonData.saveType}
-                    service={saveButtonData.service}
-                />
-            </div>
+            {
+                !cancelButtonData || !saveButtonData
+                    ? (
+                        <div style={{ textAlign: 'center', width: '40%' }}>
+                            <LoginButton />
+                        </div>
+                    ) : (
+                        <>
+                            <div style={{ width: '40%' }}>
+                                <CancelButton
+                                    dispatch={cancelButtonData.dispatch}
+                                    dispatchType={cancelButtonData.dispatchType}
+                                    redirectPath={cancelButtonData.redirectPath}
+                                />
+                            </div>
+                            <div style={{ width: '40%' }}>
+                                <SaveButton
+                                    objToSave={saveButtonData.objToSave}
+                                    saveType={saveButtonData.saveType}
+                                    service={saveButtonData.service}
+                                />
+                            </div>
+                        </>
+                    )
+            }
         </div>
-    );
+    )
 
     const generateInputs = () => {
         if (!inputsData) return null
@@ -50,6 +62,7 @@ const Form = (data: FormDataInterface) => {
                         dispatchType={inputData.dispatchType}
                         inputType={inputData.inputType}
                         label={inputData.label}
+                        placeholder={inputData.placeholder}
                         value={inputData.value}
                     />
                 </div>
@@ -107,18 +120,26 @@ const Form = (data: FormDataInterface) => {
 
 
     return (
-        <>
-            <div className='formHeader'>
-                {formHeaderText}
-            </div>
+        <div className='form'>
+            {
+                formHeaderText && (
+                    <div className='formHeader'>
+                        {formHeaderText}
+                    </div>
+                )
+            }
             <div className='formBody'>
                 {formFields}
                 {buttons}
             </div>
-            <div className='formFooter'>
-                {formFooterText}
-            </div>
-        </>
+            {
+                formFooterText && (
+                    <div className='formFooter'>
+                        {formFooterText}
+                    </div>
+                )
+            }
+        </div>
     );
 };
 

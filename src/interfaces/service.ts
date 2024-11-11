@@ -1,41 +1,41 @@
-// Common
+// Resource
 import { AuthLoginParams } from './auth';
-import { NoteParamsInterface, SavedNoteInterface } from './note';
-import { RequestParamsInterface } from './request';
-import { UserParamsInterface, SavedUserInterface } from './user';
+import { NoteParams, SavedNote } from './note';
+import { RequestParams } from './request';
+import { UserParams, SavedUser } from './user';
 
 
-interface AuthServiceInterface {
+interface AuthService {
     readonly login: (data: AuthLoginParams) => Promise<Response | void>;
 };
 
-interface NoteServiceInterface extends ServiceCommonInterface {
-    readonly save: (data: NoteParamsInterface) => Promise<Response | void>;
-    readonly update: (data: SavedNoteInterface) => Promise<Response | void>;
+interface NoteService extends ServiceCommon {
+    readonly save: (data: NoteParams) => Promise<Response | void>;
+    readonly update: (data: SavedNote) => Promise<Response | void>;
 };
 
-interface ServiceCommonInterface {
-    readonly find: (params: RequestParamsInterface) => Promise<Response | void>;
+interface ServiceCommon {
+    readonly find: (params: RequestParams) => Promise<Response | void>;
     readonly findAll: () => Promise<Response | void>;
     readonly findById: (id: string) => Promise<Response | void>;
     readonly remove: (id: string) => Promise<Response | void>;
 };
 
-interface UserServiceInterface extends ServiceCommonInterface {
-    readonly save: (data: UserParamsInterface) => Promise<Response | void>;
-    readonly update: (data: SavedUserInterface) => Promise<Response | void>;
+interface UserService extends ServiceCommon {
+    readonly save: (data: UserParams) => Promise<Response | void>;
+    readonly update: (data: SavedUser) => Promise<Response | void>;
 };
 
-export interface AuthServicesInterface {
-    readonly [index: string]: AuthServiceInterface
-    readonly auth: AuthServiceInterface;
+export interface AuthServices {
+    readonly [index: string]: AuthService
+    readonly auth: AuthService;
 };
 
-export interface ServicesInterface {
+export interface Services {
     readonly [index: string]:
-        NoteServiceInterface
-        |UserServiceInterface;
-    readonly notes: NoteServiceInterface;
-    readonly users: UserServiceInterface;
+        NoteService
+        |UserService;
+    readonly notes: NoteService;
+    readonly users: UserService;
 };
 

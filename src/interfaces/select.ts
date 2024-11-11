@@ -1,17 +1,18 @@
-import { ActionInterface } from './context';
+// Resource
+import { Action } from './context';
 
 
-export interface SelectOptionInterface {
+export interface SelectOption {
     readonly label: string;
     readonly selected: boolean;
     readonly value: string;
 };
 
-export interface SelectDataInterface {
-    readonly dispatch: React.Dispatch<ActionInterface>;
+export interface SelectData {
+    readonly dispatch: React.Dispatch<Action>;
     readonly dispatchType: string;
     readonly multiple: boolean;
-    readonly optionsData: SelectOptionInterface[];
+    readonly optionsData: SelectOption[];
     readonly value:string;
 };
 

@@ -1,32 +1,33 @@
-import { UserStateInterface } from '../../interfaces';
+// Common
+import { UserRoles, UserState } from '../../interfaces';
 
 
-const actions = {
-    CLEAR_FIELD_STATUS: 'CLEAR_FIELD_STATUS',
-    CLEAR_PARAMS: 'CLEAR_PARAMS',
-    CLEAR_STATE: 'CLEAR_STATE',
-    SET_EMAIL: 'SET_EMAIL',
-    SET_FULL_NAME: 'SET_FULL_NAME',
-    SET_IS_ACTIVE: 'SET_IS_ACTIVE',
-    SET_LOADING: 'SET_LOADING',
-    SET_PASSWORD: 'SET_PASSWORD',
-    SET_RECORDS_TO_RENDER: 'SET_RECORDS_TO_RENDER',
-    SET_ROLE: 'SET_ROLE'
+enum actions {
+    CLEAR_FIELD_STATUS = 'CLEAR_FIELD_STATUS',
+    CLEAR_PARAMS = 'CLEAR_PARAMS',
+    CLEAR_STATE = 'CLEAR_STATE',
+    SET_EMAIL = 'SET_EMAIL',
+    SET_FULL_NAME = 'SET_FULL_NAME',
+    SET_IS_ACTIVE = 'SET_IS_ACTIVE',
+    SET_LOADING = 'SET_LOADING',
+    SET_PASSWORD = 'SET_PASSWORD',
+    SET_RECORDS_TO_RENDER = 'SET_RECORDS_TO_RENDER',
+    SET_ROLE = 'SET_ROLE'
 };
 
-const initState: UserStateInterface = {
+const initState: UserState = {
     loading: false,
     params: {
         email: { status: null, value: '' },
         fullName: { status: null, value: '' },
         isActive: { status: null, value: false },
         password: { status: null, value: '' },
-        role: { status: null, value: 'user' },
+        role: { status: null, value: UserRoles.user },
     },
     recordsToRender: []
 };
 
-const reducer = (state: UserStateInterface = initState, action: any): UserStateInterface => {
+const reducer = (state: UserState = initState, action: any): UserState => {
     switch (action.type) {
         case actions.CLEAR_FIELD_STATUS:
             return {

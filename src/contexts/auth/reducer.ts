@@ -1,31 +1,37 @@
+// Common
 import {
-    ActionInterface,
-    AuthStateInterface
+    Action,
+    AuthState
 } from '../../interfaces';
 
 
-const actions = {
-    CLEAR_FIELD_STATUS: 'CLEAR_FIELD_STATUS',
-    CLEAR_LOGIN_PARAMS: 'CLEAR_LOGIN_PARAMS',
-    CLEAR_REGISTRY_PARAMS: 'CLEAR_REGISTRY_PARAMS',
-    CLEAR_STATE: 'CLEAR_STATE',
-    SET_LOADING: 'SET_LOADING',
-    SET_LOGIN_EMAIL: 'SET_LOGIN_EMAIL',
-    SET_LOGIN_PASSWORD: 'SET_LOGIN_PASSWORD',
-    SET_LOGIN_REMEMBER_ME: 'SET_LOGIN_REMEMBER_ME',
-    SET_REGISTRY_CONFIRM_EMAIL: 'SET_REGISTRY_CONFIRM_EMAIL',
-    SET_REGISTRY_CONFIRM_PASSWORD: 'SET_REGISTRY_CONFIRM_PASSWORD',
-    SET_REGISTRY_EMAIL: 'SET_REGISTRY_EMAIL',
-    SET_REGISTRY_PASSWORD: 'SET_REGISTRY_PASSWORD',
+enum actions {
+    CLEAR_FIELD_STATUS = 'CLEAR_FIELD_STATUS',
+    CLEAR_LOGIN_PARAMS = 'CLEAR_LOGIN_PARAMS',
+    CLEAR_REGISTRY_PARAMS = 'CLEAR_REGISTRY_PARAMS',
+    CLEAR_STATE = 'CLEAR_STATE',
+    SET_LOADING = 'SET_LOADING',
+    SET_LOGIN_EMAIL = 'SET_LOGIN_EMAIL',
+    SET_LOGIN_PASSWORD = 'SET_LOGIN_PASSWORD',
+    SET_LOGIN_REMEMBER_ME = 'SET_LOGIN_REMEMBER_ME',
+    SET_ERROR_INVALID_CREDENTIALS = 'SET_ERROR_INVALID_CREDENTIALS',
+    SET_ERROR_PROCESSING_LOGIN = 'SET_ERROR_PROCESSING_LOGIN',
+    SET_ERROR_PROCESSING_REGISTRY = 'SET_ERROR_PROCESSING_REGISTRY',
+    SET_REGISTRY_CONFIRM_EMAIL = 'SET_REGISTRY_CONFIRM_EMAIL',
+    SET_REGISTRY_CONFIRM_PASSWORD = 'SET_REGISTRY_CONFIRM_PASSWORD',
+    SET_REGISTRY_EMAIL = 'SET_REGISTRY_EMAIL',
+    SET_REGISTRY_PASSWORD = 'SET_REGISTRY_PASSWORD',
 };
 
-const initState: AuthStateInterface = {
+const initState: AuthState = {
     loading: false,
+    loginError: { message: '', status: false },
     loginParams: {
         email: { status: null, value: '' },
         password: { status: null, value: '' },
         rememberMe: { status: null, value: false }
     },
+    registryError: { message: '', status: false },
     registryParams: {
         confirmEmail: { status: null, value: '' },
         confirmPassword: { status: null, value: '' },
@@ -34,7 +40,7 @@ const initState: AuthStateInterface = {
     }
 };
 
-const reducer = (state: AuthStateInterface = initState, action: ActionInterface): AuthStateInterface => {
+const reducer = (state: AuthState = initState, action: Action): AuthState => {
     switch (action.type) {
         case actions.CLEAR_FIELD_STATUS:
             return {
@@ -99,6 +105,33 @@ const reducer = (state: AuthStateInterface = initState, action: ActionInterface)
                         ...state.loginParams.rememberMe,
                         value: action.payload
                     }
+                }
+            };
+        case actions.SET_ERROR_INVALID_CREDENTIALS:
+            return {
+                ...state,
+                loginError: {
+                    ...state.loginError,
+                    message: 'Invalid credentials.',
+                    status: true
+                }
+            };
+        case actions.SET_ERROR_PROCESSING_LOGIN:
+            return {
+                ...state,
+                loginError: {
+                    ...state.loginError,
+                    message: 'Error processing login. Try again later.',
+                    status: true
+                }
+            };
+        case actions.SET_ERROR_PROCESSING_REGISTRY:
+            return {
+                ...state,
+                registryError: {
+                    ...state.registryError,
+                    message: 'Error processing registry. Try again later.',
+                    status: true
                 }
             };
         case actions.SET_REGISTRY_CONFIRM_EMAIL:

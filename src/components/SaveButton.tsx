@@ -1,6 +1,6 @@
 // Common
 import services from '../services';
-import { SaveButtonDataInterface } from '../interfaces';
+import { SaveButtonData } from '../interfaces';
 import { SweetAlertResult } from 'sweetalert2';
 
 // Resource
@@ -9,7 +9,7 @@ import alerts from './alerts';
 const { errorAlert, successAlert } = alerts;
 
 
-const SaveButton = (data: SaveButtonDataInterface) => {
+const SaveButton = (data: SaveButtonData) => {
     const {
         objToSave,
         saveType,
@@ -36,7 +36,7 @@ const SaveButton = (data: SaveButtonDataInterface) => {
             className='saveButton'
             onClick={onClick}
         >
-            Guardar
+            Save
         </ button>
     );
 };

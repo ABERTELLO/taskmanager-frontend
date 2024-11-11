@@ -1,18 +1,19 @@
+// Resource
 import {
-    CancelButtonDataInterface,
-    SaveButtonDataInterface
+    CancelButtonData,
+    SaveButtonData
 } from './button';
-import { InputDataInterface } from './input';
-import { SelectDataInterface } from './select';
-import { TextAreaDataInterface } from './textArea';
+import { InputData } from './input';
+import { SelectData } from './select';
+import { TextAreaData } from './textArea';
 
 
-export interface FormDataInterface {
-    readonly cancelButtonData: CancelButtonDataInterface;
+export interface FormData {
+    readonly cancelButtonData?: CancelButtonData;
     readonly formFooterText?: string;
     readonly formHeaderText?: string;
-    readonly inputsData?: InputDataInterface[];
-    readonly saveButtonData: SaveButtonDataInterface;
-    readonly selectsData?: SelectDataInterface[];
-    readonly textAreasData?: TextAreaDataInterface[];
+    readonly inputsData?: InputData[];
+    readonly saveButtonData?: SaveButtonData;
+    readonly selectsData?: SelectData[];
+    readonly textAreasData?: TextAreaData[];
 };

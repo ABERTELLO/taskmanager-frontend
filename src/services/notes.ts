@@ -1,14 +1,14 @@
 import helpers from '../helpers';
 import type {
-    NoteParamsInterface,
-    RequestParamsInterface,
-    SavedNoteInterface
+    NoteParams,
+    RequestParams,
+    SavedNote
 } from '../interfaces';
 
 const { reqInit } = helpers.requestHelper;
 
 
-const find = async (params: RequestParamsInterface): Promise<Response | void> => {
+const find = async (params: RequestParams): Promise<Response | void> => {
     const { filters, limit, page } = params;
     try {
         const response = await fetch(
@@ -57,7 +57,7 @@ const remove = async(id: string): Promise<Response | void> => {
     };
 };
 
-const save = async (data: NoteParamsInterface): Promise<Response | void> => {
+const save = async (data: NoteParams): Promise<Response | void> => {
     try {
         const response = await fetch(
             `${process.env.REACT_APP_API_REST}/notes`,
@@ -69,7 +69,7 @@ const save = async (data: NoteParamsInterface): Promise<Response | void> => {
     };
 };
 
-const update = async (data: SavedNoteInterface): Promise<Response | void> => {
+const update = async (data: SavedNote): Promise<Response | void> => {
     try {
         const response = await fetch(
             `${process.env.REACT_APP_API_REST}/notes/${data._id}`,

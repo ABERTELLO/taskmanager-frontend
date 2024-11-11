@@ -1,11 +1,11 @@
 // Common
 import { createContext, useContext, useReducer } from 'react';
-import { NoteContextInterface, ContextPropsInterface } from '../../interfaces';
+import { NoteContext, ContextProps } from '../../interfaces';
 import note from './reducer';
 
 const { actions, initState, reducer } = note;
 
-const CreateNoteContext = createContext<NoteContextInterface>({
+const CreateNoteContext = createContext<NoteContext>({
     actions: actions,
     notes_state: initState,
     notes_dispatch: () => {}
@@ -15,7 +15,7 @@ export const useNoteContext = () => {
     return useContext(CreateNoteContext);
 };
 
-export const NoteContext = (props: ContextPropsInterface) => {
+export const NoteContextProvider = (props: ContextProps) => {
     const [notes_state, notes_dispatch] = useReducer(reducer, initState);
 
     return (

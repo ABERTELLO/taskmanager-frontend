@@ -1,29 +1,18 @@
-import { ActionInterface } from './context';
+// Common
+import note from '../contexts/note/reducer';
+
+// Resource
+import { Action } from './context';
 
 
-interface NoteActionsInterface {
-    readonly CLEAR_FIELD_STATUS: string;
-    readonly CLEAR_PARAMS: string;
-    readonly CLEAR_STATE: string;
-    readonly SET_AUTHOR: string;
-    readonly SET_COMPLETED: string;
-    readonly SET_CONTENT: string;
-    readonly SET_DATE: string;
-    readonly SET_LOADING: string;
-    readonly SET_RECORDS_TO_RENDER: string;
-    readonly SET_REGISTRATION_DATE: string;
-    readonly SET_STATUS: string;
-    readonly SET_TITLE: string;
-};
-
-interface NoteBooleanParam {
+interface NoteBoolean {
     readonly status: null | string;
     readonly value: boolean;
 };
 
 interface NoteStatusParam {
     readonly status: null | string;
-    readonly value: ['regular', 'important', 'urgent', 'lapsed'] | [];
+    readonly value: NoteStatus;
 };
 
 interface NoteStringParam {
@@ -31,15 +20,15 @@ interface NoteStringParam {
     readonly value: string;
 };
 
-export interface NoteContextInterface {
-    readonly actions: NoteActionsInterface;
-    readonly notes_state: NoteStateInterface;
-    readonly notes_dispatch: React.Dispatch<ActionInterface>;
-}
+export interface NoteContext {
+    readonly actions: typeof note.actions;
+    readonly notes_state: NoteState;
+    readonly notes_dispatch: React.Dispatch<Action>;
+};
 
-export interface NoteParamsInterface {
+export interface NoteParams {
     readonly author: NoteStringParam;
-    readonly completed: NoteBooleanParam;
+    readonly completed: NoteBoolean;
     readonly content: NoteStringParam;
     readonly date: NoteStringParam;
     readonly registrationDate: NoteStringParam;
@@ -47,13 +36,20 @@ export interface NoteParamsInterface {
     readonly title: NoteStringParam;
 };
 
-export interface NoteStateInterface {
+export interface NoteState {
     readonly loading: boolean;
-    readonly params: NoteParamsInterface;
-    readonly recordsToRender: SavedNoteInterface[];
+    readonly params: NoteParams;
+    readonly recordsToRender: SavedNote[];
 };
 
-export interface SavedNoteInterface extends NoteParamsInterface {
+export enum NoteStatus {
+    regular = 'regular',
+    important = 'important',
+    urgent = 'urgent',
+    lapsed = 'lapsed'
+};
+
+export interface SavedNote extends NoteParams {
     readonly _id: string;
     readonly __v: number;
 };

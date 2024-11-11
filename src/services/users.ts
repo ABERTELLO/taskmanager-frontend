@@ -1,14 +1,14 @@
 import helpers from '../helpers';
 import type {
-    RequestParamsInterface,
-    SavedUserInterface,
-    UserParamsInterface
+    RequestParams,
+    SavedUser,
+    UserParams
 } from '../interfaces';
 
 const { reqInit } = helpers.requestHelper;
 
 
-const find = async (params: RequestParamsInterface): Promise<Response | void> => {
+const find = async (params: RequestParams): Promise<Response | void> => {
     const { filters, limit, page } = params;
     try {
         const response = await fetch(
@@ -57,7 +57,7 @@ const remove = async(id: string): Promise<Response | void> => {
     };
 };
 
-const save = async (data: UserParamsInterface): Promise<Response | void> => {
+const save = async (data: UserParams): Promise<Response | void> => {
     try {
         const response = await fetch(
             `${process.env.REACT_APP_API_REST}/users`,
@@ -69,7 +69,7 @@ const save = async (data: UserParamsInterface): Promise<Response | void> => {
     };
 };
 
-const update = async (data: SavedUserInterface): Promise<Response | void> => {
+const update = async (data: SavedUser): Promise<Response | void> => {
     try {
         const response = await fetch(
             `${process.env.REACT_APP_API_REST}/users/${data._id}`,

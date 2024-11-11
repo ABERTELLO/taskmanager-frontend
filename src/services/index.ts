@@ -1,5 +1,5 @@
 // Common
-import { AuthServicesInterface, ServicesInterface } from '../interfaces';
+import { AuthServices, Services } from '../interfaces';
 
 // Resource
 import auth from './auth';
@@ -7,11 +7,11 @@ import notes from './notes';
 import users from './users';
 
 
-export const authServices: AuthServicesInterface = {
+export const authServices: AuthServices = {
     auth
 }
 
-const services: ServicesInterface = {
+const services: Services = {
     notes,
     users
 };
