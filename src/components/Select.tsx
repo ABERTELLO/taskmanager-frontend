@@ -1,7 +1,7 @@
-import { SelectOption, SelectData } from '../interfaces';
+import { SelectData, SelectOption } from '../interfaces';
 
 
-const Select = (data: SelectData) => {
+const Select = ({ data }: SelectData) => {
     const {
         dispatch,
         dispatchType,

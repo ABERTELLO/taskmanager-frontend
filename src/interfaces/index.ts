@@ -5,22 +5,31 @@ import {
     AuthState
 } from './auth';
 import {
-    CancelButtonData,
-    SaveButtonData,
-    SaveService,
+    ButtonData,
+    ButtonProps,
+    ButtonTypes,
     SaveType
 } from './button';
 import {
     Action,
     ContextProps
 } from './context';
-import { FormData } from './form';
+import {
+    FormData,
+    FormProps
+} from './form';
 import {
     InputData,
+    InputProps,
     InputTypes,
     InputTypesForValues,
     InputValueTypes
 } from './input';
+import {
+    ModalData,
+    ModalLauncherElements,
+    ModalProps
+} from './modal';
 import {
     NoteContext,
     NoteParams,
@@ -30,17 +39,16 @@ import {
 } from './note';
 import {
     RequestInitDataType,
-    RequestParams
+    RequestParams,
+    StateParams
 } from './request';
 import { Route } from './route';
 import {
     SelectData,
+    SelectProps,
     SelectOption
 } from './select';
-import {
-    AuthServices,
-    Services
-} from './service';
+import { Services } from './service';
 import {
     SavedUser,
     UserContext,
@@ -48,16 +56,21 @@ import {
     UserRoles,
     UserState
 } from './user';
-import { TextAreaData } from './textArea';
+import {
+    TextAreaData,
+    TextAreaProps
+} from './textArea';
 
 
 export { // Enums for string literals
+    ButtonTypes,
     InputTypes,
     InputTypesForValues,
     InputValueTypes,
+    ModalLauncherElements,
     NoteStatus,
-    SaveService,
     SaveType,
+    Services,
     UserRoles
 }
 
@@ -66,26 +79,31 @@ export type {
     AuthContext,
     AuthLoginParams,
     AuthRegistryParams,
-    AuthServices,
     AuthState,
-    CancelButtonData,
+    ButtonData,
+    ButtonProps,
     ContextProps,
     FormData,
+    FormProps,
     InputData,
-    UserContext,
+    InputProps,
+    ModalData,
+    ModalProps,
     NoteContext,
     NoteParams,
     NoteState,
     RequestInitDataType,
     RequestParams,
     Route,
-    SaveButtonData,
     SavedNote,
     SavedUser,
     SelectData,
+    SelectProps,
     SelectOption,
-    Services,
+    StateParams,
     TextAreaData,
+    TextAreaProps,
+    UserContext,
     UserParams,
     UserState
 };

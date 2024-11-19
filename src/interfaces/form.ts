@@ -1,19 +1,19 @@
 // Resource
-import {
-    CancelButtonData,
-    SaveButtonData
-} from './button';
-import { InputData } from './input';
-import { SelectData } from './select';
-import { TextAreaData } from './textArea';
+import { ButtonProps } from './button';
+import { InputProps } from './input';
+import { SelectProps } from './select';
+import { TextAreaProps } from './textArea';
 
 
 export interface FormData {
-    readonly cancelButtonData?: CancelButtonData;
-    readonly formFooterText?: string;
-    readonly formHeaderText?: string;
-    readonly inputsData?: InputData[];
-    readonly saveButtonData?: SaveButtonData;
-    readonly selectsData?: SelectData[];
-    readonly textAreasData?: TextAreaData[];
+    readonly data: FormProps;
+};
+
+export interface FormProps {
+    readonly buttonsData: ButtonProps[];
+    readonly formFooter?: React.JSX.Element | string;
+    readonly formHeader?: React.JSX.Element | string;
+    readonly inputsData?: InputProps[];
+    readonly selectsData?: SelectProps[];
+    readonly textAreasData?: TextAreaProps[];
 };

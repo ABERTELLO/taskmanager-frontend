@@ -4,14 +4,19 @@ import { InputData, InputTypesForValues, InputValueTypes } from '../interfaces';
 const { yyyymmddhhmmss } = helpers.dateHelper;
 
 
-const Input = (data: InputData) => {
+const Input = ({ data }: InputData) => {
     const {
+        autofocus,
         checked,
         dispatch,
         dispatchType,
+        enterAction,
+        escapeAction,
         inputType,
         label,
         placeholder,
+        ref,
+        status,
         value
     } = data;
 
@@ -28,29 +33,33 @@ const Input = (data: InputData) => {
             typesForStringValue
         } = InputTypesForValues;
 
-        let valueType: any;
-        if (typesForBooleanValue.includes(inputType)) valueType = InputValueTypes.boolean;
-        else if (typesForDateValue.includes(inputType)) valueType = InputValueTypes.date;
-        else if (typesForNumberValue.includes(inputType)) valueType = InputValueTypes.number;
-        else if (typesForStringValue.includes(inputType)) valueType = InputValueTypes.string;
+        const booleanValue = typesForBooleanValue.includes(inputType);
+        const dateValue = typesForDateValue.includes(inputType);
+        const numberValue = typesForNumberValue.includes(inputType);
+        const stringValue = typesForStringValue.includes(inputType);
+
+        let valueType: InputValueTypes;
+        if (booleanValue) valueType = InputValueTypes.boolean;
+        else if (dateValue) valueType = InputValueTypes.date;
+        else if (numberValue) valueType = InputValueTypes.number;
+        else if (stringValue) valueType = InputValueTypes.string;
         else valueType = InputValueTypes.null;
         return valueType;
     };
 
-    const inputContainerClass = (): string => {
-        let className: string;
+    const inputClasses = (): { container: string, label: string } => {
+        let container: string;
+        let label: string;
         const inputValueType = getValueType();
-        if (inputValueType === 'boolean') className = 'inputContainer';
-        else className = 'inputContainer inputContainerPercentage';
-        return className;
-    };
 
-    const inputLabelClass = (): string => {
-        let className: string;
-        const inputValueType = getValueType();
-        if (inputValueType === 'boolean') className = 'inputLabel';
-        else className = 'inputLabel inputLabelPercentage';
-        return className;
+        if (inputValueType === 'boolean') {
+            container = 'inputContainer';
+            label = 'inputLabel';
+        } else {
+            container = 'inputContainer inputContainerPercentage';
+            label = 'inputLabel inputLabelPercentage';
+        }
+        return { container, label };
     };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -77,25 +86,43 @@ const Input = (data: InputData) => {
         } else return;
     };
 
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const pressedEnter = ['Enter', 'NumpadEnter'].includes(e.key);
+        const pressedEscape = ['Escape'].includes(e.key);
+        if (enterAction && pressedEnter) enterAction();
+        else if (escapeAction && pressedEscape) escapeAction();
+        else return;
+    };
+
     return (
         <div className='inputComponent'>
             {
                 label && (
-                    <div className={inputLabelClass()}>
+                    <div className={inputClasses().label}>
                         {label}
                     </div>
                 )
             }
-            <div className={inputContainerClass()}>
+            <div className={inputClasses().container}>
                 <input
+                    autoFocus={autofocus}
                     checked={checked}
                     className='input'
                     onClick={onClick}
                     onChange={onChange}
+                    onKeyDown={onKeyDown}
                     placeholder={placeholder}
+                    ref={ref}
                     type={inputType}
                     value={value}
                 />
+                {
+                    status === false && (
+                        <div className='inputErrorSpan'>
+                            You must complete this field.
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

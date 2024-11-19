@@ -1,5 +1,18 @@
-import { RequestInitDataType } from '../interfaces';
+// Resource
+import { RequestInitDataType, StateParams } from '../interfaces';
 
+
+const extractValues = (params: StateParams): any => {
+    const paramsKeys = Object.keys(params);
+    const paramsObj = Object.values(params);
+    const objValues: any = {};
+    for (let index = 0; index < paramsKeys.length; index++) {
+        const key = paramsKeys[index];
+        const value = paramsObj[index].value;
+        objValues[key] = value;
+    };
+    return objValues;
+};
 
 const reqInit = (method: string, data: RequestInitDataType = null) => {
     const token = `Bearer ${localStorage.getItem('token')}`;
@@ -15,6 +28,7 @@ const reqInit = (method: string, data: RequestInitDataType = null) => {
 };
 
 const requestHelper = {
+    extractValues,
     reqInit
 };
 

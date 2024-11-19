@@ -7,6 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // Styles
+import './reset.css';
 import './index.css';
 
 

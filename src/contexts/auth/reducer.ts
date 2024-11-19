@@ -12,31 +12,39 @@ enum actions {
     CLEAR_STATE = 'CLEAR_STATE',
     SET_LOADING = 'SET_LOADING',
     SET_LOGIN_EMAIL = 'SET_LOGIN_EMAIL',
+    SET_LOGIN_EMAIL_STATUS = 'SET_LOGIN_EMAIL_STATUS',
     SET_LOGIN_PASSWORD = 'SET_LOGIN_PASSWORD',
+    SET_LOGIN_PASSWORD_STATUS = 'SET_LOGIN_PASSWORD_STATUS',
     SET_LOGIN_REMEMBER_ME = 'SET_LOGIN_REMEMBER_ME',
     SET_ERROR_INVALID_CREDENTIALS = 'SET_ERROR_INVALID_CREDENTIALS',
     SET_ERROR_PROCESSING_LOGIN = 'SET_ERROR_PROCESSING_LOGIN',
     SET_ERROR_PROCESSING_REGISTRY = 'SET_ERROR_PROCESSING_REGISTRY',
+    SET_REFS = 'SET_REFS',
     SET_REGISTRY_CONFIRM_EMAIL = 'SET_REGISTRY_CONFIRM_EMAIL',
+    SET_REGISTRY_CONFIRM_EMAIL_STATUS = 'SET_REGISTRY_CONFIRM_EMAIL_STATUS',
     SET_REGISTRY_CONFIRM_PASSWORD = 'SET_REGISTRY_CONFIRM_PASSWORD',
+    SET_REGISTRY_CONFIRM_PASSWORD_STATUS = 'SET_REGISTRY_CONFIRM_PASSWORD_STATUS',
     SET_REGISTRY_EMAIL = 'SET_REGISTRY_EMAIL',
+    SET_REGISTRY_EMAIL_STATUS = 'SET_REGISTRY_EMAIL_STATUS',
     SET_REGISTRY_PASSWORD = 'SET_REGISTRY_PASSWORD',
+    SET_REGISTRY_PASSWORD_STATUS = 'SET_REGISTRY_PASSWORD_STATUS',
 };
 
 const initState: AuthState = {
     loading: false,
     loginError: { message: '', status: false },
     loginParams: {
-        email: { status: null, value: '' },
-        password: { status: null, value: '' },
-        rememberMe: { status: null, value: false }
+        email: { status: true, value: '' },
+        password: { status: true, value: '' },
+        rememberMe: { status: true, value: false }
     },
+    refs: { email: null },
     registryError: { message: '', status: false },
     registryParams: {
-        confirmEmail: { status: null, value: '' },
-        confirmPassword: { status: null, value: '' },
-        email: { status: null, value: '' },
-        password: { status: null, value: '' }
+        confirmEmail: { status: true, value: '' },
+        confirmPassword: { status: true, value: '' },
+        email: { status: true, value: '' },
+        password: { status: true, value: '' }
     }
 };
 
@@ -46,15 +54,15 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
             return {
                 ...state,
                 loginParams: {
-                    email: { ...state.loginParams.email, status: null },
-                    password: { ...state.loginParams.password, status: null },
-                    rememberMe: { ...state.loginParams.rememberMe, status: null }
+                    email: { ...state.loginParams.email, status: true },
+                    password: { ...state.loginParams.password, status: true },
+                    rememberMe: { ...state.loginParams.rememberMe, status: true }
                 },
                 registryParams: {
-                    confirmEmail: { ...state.registryParams.confirmEmail, status: null },
-                    confirmPassword: { ...state.registryParams.confirmPassword, status: null },
-                    email: { ...state.registryParams.email, status: null },
-                    password: { ...state.registryParams.password, status: null }
+                    confirmEmail: { ...state.registryParams.confirmEmail, status: true },
+                    confirmPassword: { ...state.registryParams.confirmPassword, status: true },
+                    email: { ...state.registryParams.email, status: true },
+                    password: { ...state.registryParams.password, status: true }
                 }
             };
         case actions.CLEAR_LOGIN_PARAMS:
@@ -85,6 +93,17 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
+        case actions.SET_LOGIN_EMAIL_STATUS:
+            return {
+                ...state,
+                loginParams: {
+                    ...state.loginParams,
+                    email: {
+                        ...state.loginParams.email,
+                        status: action.payload
+                    }
+                }
+            };
         case actions.SET_LOGIN_PASSWORD:
             return {
                 ...state,
@@ -93,6 +112,17 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     password: {
                         ...state.loginParams.password,
                         value: action.payload
+                    }
+                }
+            };
+        case actions.SET_LOGIN_PASSWORD_STATUS:
+            return {
+                ...state,
+                loginParams: {
+                    ...state.loginParams,
+                    password: {
+                        ...state.loginParams.password,
+                        status: action.payload
                     }
                 }
             };
@@ -134,6 +164,11 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     status: true
                 }
             };
+        case actions.SET_REFS:
+            return {
+                ...state,
+                refs: action.payload
+            };
         case actions.SET_REGISTRY_CONFIRM_EMAIL:
             return {
                 ...state,
@@ -142,6 +177,17 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     confirmEmail: {
                         ...state.registryParams.confirmEmail,
                         value: action.payload
+                    }
+                }
+            };
+        case actions.SET_REGISTRY_CONFIRM_EMAIL_STATUS:
+            return {
+                ...state,
+                registryParams: {
+                    ...state.registryParams,
+                    confirmEmail: {
+                        ...state.registryParams.confirmEmail,
+                        status: action.payload
                     }
                 }
             };
@@ -156,6 +202,17 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
+        case actions.SET_REGISTRY_CONFIRM_PASSWORD_STATUS:
+            return {
+                ...state,
+                registryParams: {
+                    ...state.registryParams,
+                    confirmPassword: {
+                        ...state.registryParams.confirmPassword,
+                        status: action.payload
+                    }
+                }
+            };
         case actions.SET_REGISTRY_EMAIL:
             return {
                 ...state,
@@ -167,6 +224,17 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
+        case actions.SET_REGISTRY_EMAIL_STATUS:
+            return {
+                ...state,
+                registryParams: {
+                    ...state.registryParams,
+                    email: {
+                        ...state.registryParams.email,
+                        status: action.payload
+                    }
+                }
+            };
         case actions.SET_REGISTRY_PASSWORD:
             return {
                 ...state,
@@ -175,6 +243,17 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     password: {
                         ...state.registryParams.password,
                         value: action.payload
+                    }
+                }
+            };
+        case actions.SET_REGISTRY_PASSWORD_STATUS:
+            return {
+                ...state,
+                registryParams: {
+                    ...state.registryParams,
+                    password: {
+                        ...state.registryParams.password,
+                        status: action.payload
                     }
                 }
             };

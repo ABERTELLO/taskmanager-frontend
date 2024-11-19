@@ -2,21 +2,18 @@
 import { FormData } from '../interfaces/form';
 
 // Resource
-import CancelButton from './CancelButton';
+import Button from './Button';
 import Input from './Input';
-import LoginButton from './LoginButton';
-import SaveButton from './SaveButton';
 import Select from './Select';
 import TextArea from './TextArea';
 
 
-const Form = (data: FormData) => {
+const Form = ({ data }: FormData) => {
     const {
-        cancelButtonData,
-        formFooterText,
-        formHeaderText,
+        buttonsData,
+        formFooter,
+        formHeader,
         inputsData,
-        saveButtonData,
         selectsData,
         textAreasData
     } = data;
@@ -25,46 +22,25 @@ const Form = (data: FormData) => {
     const buttons = (
         <div className='formButtons'>
             {
-                !cancelButtonData || !saveButtonData
-                    ? (
-                        <div style={{ textAlign: 'center', width: '40%' }}>
-                            <LoginButton />
+                buttonsData.map((buttonData, index) => {
+                    const key = 'formButton_' + index
+                    const button = (
+                        <div key={key} style={{ textAlign: 'center', width: '40%' }}>
+                            <Button data={buttonData}/>
                         </div>
-                    ) : (
-                        <>
-                            <div style={{ width: '40%' }}>
-                                <CancelButton
-                                    dispatch={cancelButtonData.dispatch}
-                                    dispatchType={cancelButtonData.dispatchType}
-                                    redirectPath={cancelButtonData.redirectPath}
-                                />
-                            </div>
-                            <div style={{ width: '40%' }}>
-                                <SaveButton
-                                    objToSave={saveButtonData.objToSave}
-                                    saveType={saveButtonData.saveType}
-                                    service={saveButtonData.service}
-                                />
-                            </div>
-                        </>
                     )
+                    return button
+                })
             }
         </div>
-    )
+    );
 
     const generateInputs = () => {
         if (!inputsData) return null
         const inputs = inputsData.map((inputData, index) => {
             const input = (
                 <div key={'form_input_' + index}>
-                    <Input
-                        dispatch={inputData.dispatch}
-                        dispatchType={inputData.dispatchType}
-                        inputType={inputData.inputType}
-                        label={inputData.label}
-                        placeholder={inputData.placeholder}
-                        value={inputData.value}
-                    />
+                    <Input data={inputData}/>
                 </div>
             );
             return input;
@@ -77,13 +53,7 @@ const Form = (data: FormData) => {
         const selects = selectsData.map((selectData, index) => {
             const select = (
                 <div key={'form_select_' + index}>
-                    <Select
-                        dispatch={selectData.dispatch}
-                        dispatchType={selectData.dispatchType}
-                        multiple={selectData.multiple}
-                        optionsData={selectData.optionsData}
-                        value={selectData.value}
-                    />
+                    <Select data={selectData}/>
                 </div>
             );
             return select;
@@ -96,13 +66,7 @@ const Form = (data: FormData) => {
         const textAreas = textAreasData.map((textAreaData, index) => {
             const textArea = (
                 <div key={'form_textarea_' + index}>
-                    <TextArea
-                        dispatch={textAreaData.dispatch}
-                        dispatchType={textAreaData.dispatchType}
-                        label={textAreaData.label}
-                        rows={textAreaData.rows}
-                        value={textAreaData.value}
-                    />
+                    <TextArea data={textAreaData}/>
                 </div>
             );
             return textArea;
@@ -122,9 +86,9 @@ const Form = (data: FormData) => {
     return (
         <div className='form'>
             {
-                formHeaderText && (
+                formHeader && (
                     <div className='formHeader'>
-                        {formHeaderText}
+                        {formHeader}
                     </div>
                 )
             }
@@ -133,9 +97,9 @@ const Form = (data: FormData) => {
                 {buttons}
             </div>
             {
-                formFooterText && (
+                formFooter && (
                     <div className='formFooter'>
-                        {formFooterText}
+                        {formFooter}
                     </div>
                 )
             }

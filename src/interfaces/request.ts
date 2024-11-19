@@ -16,3 +16,8 @@ export type RequestInitDataType =
     | SavedNote
     | SavedUser
     | UserParams
+
+export type StateParams = 
+    AuthLoginParams
+    | NoteParams
+    | UserParams

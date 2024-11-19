@@ -1,16 +1,17 @@
-import CancelButton from './CancelButton';
+// Resource
+import Button from './Button';
 import Form from './Form';
 import Input from './Input';
-import SaveButton from './SaveButton';
+import Modal from './Modal';
 import Select from './Select';
 import TextArea from './TextArea';
 
 
 const components = {
-    CancelButton,
+    Button,
     Form,
     Input,
-    SaveButton,
+    Modal,
     Select,
     TextArea
 };

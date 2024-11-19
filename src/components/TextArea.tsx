@@ -1,7 +1,7 @@
 import { TextAreaData } from '../interfaces';
 
 
-const TextArea = (data: TextAreaData) => {
+const TextArea = ({ data }: TextAreaData) => {
     const {
         dispatch,
         dispatchType,

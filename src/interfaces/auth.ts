@@ -6,12 +6,12 @@ import { Action } from './context';
 
 
 interface AuthBooleanParam {
-    readonly status: null | string;
+    readonly status: boolean;
     readonly value: boolean;
 };
 
 interface AuthStringParam {
-    readonly status: null | string;
+    readonly status: boolean;
     readonly value: string;
 };
 
@@ -38,6 +38,7 @@ export interface AuthState {
     readonly loading: boolean;
     readonly loginError: { message: string, status: boolean };
     readonly loginParams: AuthLoginParams;
+    readonly refs: { email: null };
     readonly registryError: { message: string, status: boolean };
     readonly registryParams: AuthRegistryParams;
 };

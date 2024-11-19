@@ -3,12 +3,21 @@ import { Action } from './context';
 
 
 export interface InputData {
+    readonly data: InputProps;
+};
+
+export interface InputProps {
+    readonly autofocus?: boolean;
     readonly checked?: boolean;
     readonly dispatch: React.Dispatch<Action>;
     readonly dispatchType: string;
+    readonly enterAction?: () => void;
+    readonly escapeAction?: () => void;
     readonly inputType: InputTypes;
     readonly label?: string;
     readonly placeholder?: string;
+    readonly ref?: React.RefObject<HTMLInputElement>;
+    readonly status?: boolean;
     readonly value?: number | string;
 };
 

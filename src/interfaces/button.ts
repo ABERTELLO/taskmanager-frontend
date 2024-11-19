@@ -1,11 +1,16 @@
 // Resource
 import { Action } from './context';
+import { Services } from './service';
 
 
-export enum SaveService {
-    auth = 'auth',
-    notes = 'notes',
-    users = 'users'
+interface VerifyNotEmptyField {
+    readonly dispatchType: string;
+    readonly value: any;
+};
+
+export enum ButtonTypes {
+    cancel = 'cancel',
+    save = 'save'
 };
 
 export enum SaveType {
@@ -13,14 +18,20 @@ export enum SaveType {
     update = 'update'
 };
 
-export interface CancelButtonData {
-    readonly dispatch?: React.Dispatch<Action>;
-    readonly dispatchType?: string;
-    readonly redirectPath: string;
+export interface ButtonData {
+    readonly data: ButtonProps;
 };
 
-export interface SaveButtonData {
-    readonly objToSave: any;
-    readonly saveType: SaveType;
-    readonly service: SaveService;
+export interface ButtonProps {
+    readonly action?: any;
+    readonly dispatch?: React.Dispatch<Action>;
+    readonly dispatchType?: string;
+    readonly label?: string;
+    readonly objToSave?: any;
+    readonly redirectPath?: string;
+    readonly ref?: React.RefObject<HTMLButtonElement>;
+    readonly saveType?: SaveType;
+    readonly service?: Services;
+    readonly type?: ButtonTypes;
+    readonly verifyNotEmptyFields?: VerifyNotEmptyField[];
 };
