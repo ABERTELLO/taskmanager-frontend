@@ -14,12 +14,12 @@ const extractValues = (params: StateParams): any => {
     return objValues;
 };
 
-const reqInit = (method: string, data: RequestInitDataType = null) => {
+const reqInit = (method: string, data: RequestInitDataType = null): RequestInit => {
     const token = `Bearer ${localStorage.getItem('token')}`;
     const reqConfig = {
         body: data ? JSON.stringify(data) : null,
         headers: {
-            'Authorization': token ?? null,
+            'Authorization': token,
             'Content-Type': 'application/json'
         },
         method

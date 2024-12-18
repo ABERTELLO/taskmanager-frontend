@@ -1,6 +1,6 @@
 import helpers from '../helpers';
 import type {
-    RequestParams,
+    PaginationParams,
     SavedUser,
     UserParams
 } from '../interfaces';
@@ -8,17 +8,18 @@ import type {
 const { reqInit } = helpers.requestHelper;
 
 
-const find = async (params: RequestParams): Promise<Response | void> => {
+const find = async (params: PaginationParams): Promise<Response | void> => {
     const { filters, limit, page } = params;
+    const stringFilters = JSON.stringify(filters);
     try {
         const response = await fetch(
-            `${process.env.REACT_APP_API_REST}/users?page=${page}&limit=${limit}&filters=${filters}`,
+            `${process.env.REACT_APP_API_REST}/users?page=${page}&limit=${limit}&filters=${stringFilters}`,
             reqInit('GET')
         );
         return response;
     } catch (error) {
         return console.log(error);
-    }
+    };
 };
 
 const findAll = async (): Promise<Response | void> => {

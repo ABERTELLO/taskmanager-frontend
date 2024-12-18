@@ -15,9 +15,13 @@ const Button = ({ data }: ButtonData) => {
         action,
         dispatch,
         dispatchType,
+        dispatchErrorType,
+        enterAction,
+        escapeAction,
         label,
         objToSave,
         redirectPath,
+        ref,
         saveType,
         service,
         type,
@@ -47,44 +51,6 @@ const Button = ({ data }: ButtonData) => {
         };
     };
 
-    const onClick = () => {
-        cancel();
-        const verification = notEmptyFieldsVerification();
-        if (!verification) return;
-        runAction();
-        save();
-    };
-
-    const runAction = (): void => {
-        if (action) action();
-    };
-
-    const save = async (): Promise<SweetAlertResult<any> | void> => {
-        if (type !== ButtonTypes.save) return;
-        if (
-            !objToSave
-            || !saveType
-            || !service
-            || service === Services.auth
-        ) {
-            console.log(`Incorrectly configured 'save' function in 'Button' component. Check props received.`);
-            return errorAlert('Incorrectly configuration. Contact your provider.');
-        }
-
-        let response;
-        if (saveType === SaveType.save) {
-            response = await services[service].save(objToSave);
-        } else if (saveType === SaveType.update) {
-            response = await services[service].update(objToSave);
-        } else {
-            console.log(`Incorrectly configured 'onClick' button event. Param 'saveType' must be 'save' or 'update'.`);
-            return errorAlert('Incorrectly saving configuration. Contact your provider.');
-        }
-        if (typeof response === 'undefined') return; // service catch error case
-        if (!response.ok) errorAlert('Error saving. Try again.');
-        successAlert();
-    };
-
     const notEmptyFieldsVerification = (): boolean => {
         if (!dispatch || !verifyNotEmptyFields) return true;
 
@@ -94,15 +60,66 @@ const Button = ({ data }: ButtonData) => {
             const value = verifyNotEmptyFields[index].value;
 
             let payload: boolean;
-            if (!value || value.length === 0) payload = false
-            else payload = true
-            dispatch({ type: dispatchType, payload })
+            if (!value || value.length === 0) payload = false;
+            else payload = true;
+            dispatch({ type: dispatchType, payload });
 
-            allStatus.push(payload)
+            allStatus.push(payload);
         };
 
         if (allStatus.includes(false)) return false;
         else return true;
+    };
+
+    const onClick = () => {
+        cancel();
+        const verification = notEmptyFieldsVerification();
+        if (!verification) return;
+        runAction();
+        save();
+    };
+
+    const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+        const pressedEnter = ['Enter', 'NumpadEnter'].includes(e.key);
+        const pressedEscape = ['Escape'].includes(e.key);
+        if (enterAction && pressedEnter) enterAction();
+        else if (escapeAction && pressedEscape) escapeAction();
+        else return;
+    };
+
+    const runAction = (): void => {
+        if (action) action();
+    };
+
+    const save = async (): Promise<SweetAlertResult<any> | void> => {
+        if (type !== ButtonTypes.save) return;
+        if (
+            !dispatch
+            || !dispatchErrorType
+            || !objToSave
+            || !saveType
+            || !service
+            || service === Services.auth
+        ) {
+            console.log(`Incorrectly configured 'save' function in 'Button' component. Check props received.`);
+            return errorAlert('Incorrectly configuration. Contact your provider.');
+        };
+
+        let response;
+        if (saveType === SaveType.save) {
+            response = await services[service].save(objToSave);
+        } else if (saveType === SaveType.update) {
+            response = await services[service].update(objToSave);
+        } else {
+            console.log(`Incorrectly configured 'onClick' button event. Param 'saveType' must be 'save' or 'update'.`);
+            return errorAlert('Incorrectly saving configuration. Contact your provider.');
+        };
+
+        if (!response || !response.ok) {
+            dispatch({ type: dispatchErrorType, payload: true })
+            return;
+        } else dispatch({ type: dispatchErrorType, payload: false });
+        successAlert();
     };
 
 
@@ -110,6 +127,8 @@ const Button = ({ data }: ButtonData) => {
         <button
             className={generateButtonLabelAndClassname().className}
             onClick={onClick}
+            onKeyDown={onKeyDown}
+            ref={ref}
         >
             {generateButtonLabelAndClassname().label}
         </ button>

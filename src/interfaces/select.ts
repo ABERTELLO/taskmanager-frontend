@@ -15,6 +15,8 @@ export interface SelectOption {
 export interface SelectProps {
     readonly dispatch: React.Dispatch<Action>;
     readonly dispatchType: string;
+    readonly enterAction: () => void;
+    readonly escapeAction: () => void;
     readonly multiple: boolean;
     readonly optionsData: SelectOption[];
     readonly ref?: React.RefObject<HTMLSelectElement>;

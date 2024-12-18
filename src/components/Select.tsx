@@ -5,6 +5,8 @@ const Select = ({ data }: SelectData) => {
     const {
         dispatch,
         dispatchType,
+        enterAction,
+        escapeAction,
         multiple,
         optionsData,
         value
@@ -29,10 +31,19 @@ const Select = ({ data }: SelectData) => {
         // dispatch({ type: dispatchType, payload: e.target.value });
     };
 
+    const onKeyDown = (e: React.KeyboardEvent<HTMLSelectElement>) => {
+        const pressedEnter = ['Enter', 'NumpadEnter'].includes(e.key);
+        const pressedEscape = ['Escape'].includes(e.key);
+        if (enterAction && pressedEnter) enterAction();
+        else if (escapeAction && pressedEscape) escapeAction();
+        else return;
+    };
+
     return (
         <select
             multiple={multiple}
             onChange={onChange}
+            onKeyDown={onKeyDown}
             value={value}
         >
             {selectOptions}

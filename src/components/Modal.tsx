@@ -55,7 +55,7 @@ const Modal = ({ data }: ModalData) => {
             }
             {
                 visible && (
-                    <div className='modalBackScreen'>
+                    <div id='modal' className='modalBackScreen'>
                         <div className='center'>
                             <div className='container' style={{ marginTop: '7%' }}>
                                 <div>

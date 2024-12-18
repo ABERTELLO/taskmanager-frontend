@@ -26,6 +26,9 @@ export interface ButtonProps {
     readonly action?: any;
     readonly dispatch?: React.Dispatch<Action>;
     readonly dispatchType?: string;
+    readonly dispatchErrorType?: string;
+    readonly enterAction?: () => void;
+    readonly escapeAction?: () => void;
     readonly label?: string;
     readonly objToSave?: any;
     readonly redirectPath?: string;

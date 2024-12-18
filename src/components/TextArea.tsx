@@ -5,6 +5,8 @@ const TextArea = ({ data }: TextAreaData) => {
     const {
         dispatch,
         dispatchType,
+        enterAction,
+        escapeAction,
         label,
         rows,
         value
@@ -15,9 +17,18 @@ const TextArea = ({ data }: TextAreaData) => {
         // dispatch({ type: dispatchType, payload: e.target.value });
     };
 
+    const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        const pressedEnter = ['Enter', 'NumpadEnter'].includes(e.key);
+        const pressedEscape = ['Escape'].includes(e.key);
+        if (enterAction && pressedEnter) enterAction();
+        else if (escapeAction && pressedEscape) escapeAction();
+        else return;
+    };
+
     return (
         <textarea
             onChange={onChange}
+            onKeyDown={onKeyDown}
             placeholder={label}
             rows={rows}
             value={value}

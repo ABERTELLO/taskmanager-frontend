@@ -4,16 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import components from '../../components';
 import contexts from '../../contexts';
 import { FormProps, InputTypes } from '../../interfaces';
+import helpers from '../../helpers';
 import { authServices } from '../../services';
 
 //Resource
 import FormFooter from './formFooter';
 
 const { Form } = components;
+const { extractValues } = helpers.requestHelper;
 
 
 const Login = () => {
-    const { actions, auth_state, auth_dispatch } = contexts.useAuthContext();
+    const { auth_actions, auth_state, auth_dispatch } = contexts.useAuthContext();
     const navigate = useNavigate();
     const loginButtonRef = useRef<HTMLButtonElement>(null);
     const emailInputRef = useRef<HTMLInputElement>(null);
@@ -27,18 +29,30 @@ const Login = () => {
         ) emailInputRef.current.focus();
         if (
             passwordInputRef.current
+            && auth_state.loginParams.email.value.length > 0
             && auth_state.loginParams.password.value.length === 0
         ) passwordInputRef.current.focus();
+        if (
+            loginButtonRef.current
+            && auth_state.loginParams.email.value.length > 0
+            && auth_state.loginParams.password.value.length > 0
+        ) loginButtonRef.current.focus();
     };
 
     const login = async (): Promise<void> => {
-        const response = await authServices.auth.login(auth_state.loginParams);
-        if (typeof response === 'undefined') {
-            return auth_dispatch({ type: actions.SET_ERROR_PROCESSING_LOGIN });
-        };
+        const loginParams = extractValues(auth_state.loginParams);
+        const response = await authServices.auth.login(loginParams);
+        if (!response) {
+            auth_dispatch({ type: auth_actions.SET_ERROR_PROCESSING_LOGIN, payload: true });
+            return;
+        } else auth_dispatch({ type: auth_actions.SET_ERROR_PROCESSING_LOGIN, payload: false });
         if (!response.ok) {
-            return auth_dispatch({ type: actions.SET_ERROR_INVALID_CREDENTIALS });
-        };
+            auth_dispatch({ type: auth_actions.SET_ERROR_INVALID_CREDENTIALS, payload: true });
+            return;
+        } else auth_dispatch({ type: auth_actions.SET_ERROR_INVALID_CREDENTIALS, payload: false });
+        const formattedResponse = await response.json();
+        localStorage.setItem('token', formattedResponse.token);
+        localStorage.setItem('userID', formattedResponse.userID);
         navigate('/home');
     };
 
@@ -52,11 +66,11 @@ const Login = () => {
                 ref: loginButtonRef,
                 verifyNotEmptyFields: [
                     {
-                        dispatchType: actions.SET_LOGIN_EMAIL_STATUS,
+                        dispatchType: auth_actions.SET_LOGIN_EMAIL_STATUS,
                         value: auth_state.loginParams.email.value
                     },
                     {
-                        dispatchType: actions.SET_LOGIN_PASSWORD_STATUS,
+                        dispatchType: auth_actions.SET_LOGIN_PASSWORD_STATUS,
                         value: auth_state.loginParams.password.value
                     }
                 ]
@@ -67,7 +81,7 @@ const Login = () => {
             {
                 autofocus: true,
                 dispatch: auth_dispatch,
-                dispatchType: actions.SET_LOGIN_EMAIL,
+                dispatchType: auth_actions.SET_LOGIN_EMAIL,
                 enterAction,
                 inputType: InputTypes.email,
                 label: 'Email',
@@ -78,7 +92,7 @@ const Login = () => {
             },
             {
                 dispatch: auth_dispatch,
-                dispatchType: actions.SET_LOGIN_PASSWORD,
+                dispatchType: auth_actions.SET_LOGIN_PASSWORD,
                 enterAction,
                 inputType: InputTypes.password,
                 label: 'Password',
@@ -89,7 +103,7 @@ const Login = () => {
             {
                 checked: auth_state.loginParams.rememberMe.value,
                 dispatch: auth_dispatch,
-                dispatchType: actions.SET_LOGIN_REMEMBER_ME,
+                dispatchType: auth_actions.SET_LOGIN_REMEMBER_ME,
                 inputType: InputTypes.checkbox,
                 label: 'Remember me',
                 ref: rememberMeInpiutRef

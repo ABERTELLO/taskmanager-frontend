@@ -1,10 +1,14 @@
-import dateHelper from './dateHelper';
-import requestHelper from './requestHelper';
+import dataProcessing from './dataProcessing';
+import dateHelper from './date';
+import requestHelper from './request';
+import stringHelper from './messages';
 
 
 const helpers = {
+    dataProcessing,
     dateHelper,
-    requestHelper
+    requestHelper,
+    stringHelper
 };
 
 export default helpers;

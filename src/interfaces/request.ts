@@ -1,10 +1,27 @@
 // Resource
 import { AuthLoginParams } from './auth';
-import { NoteParams, SavedNote } from './note';
-import { UserParams, SavedUser } from './user';
+import { NoteParams, NoteStatus, SavedNote } from './note';
+import { UserParams, UserRoles, SavedUser } from './user';
 
-export interface RequestParams {
-    readonly filters: object;
+
+interface NotePaginationParams {
+    readonly completed: boolean | null;
+    readonly content: string | null;
+    readonly date: string | null;
+    readonly registrationDate: string | null;
+    readonly status: NoteStatus | null;
+    readonly title: string | null;
+};
+
+interface UserPaginationParams {
+    readonly email: string | null;
+    readonly fullName: string | null;
+    readonly isActive: boolean | null;
+    readonly role: UserRoles | null;
+};
+
+export interface PaginationParams {
+    readonly filters: NotePaginationParams | UserPaginationParams;
     readonly limit: number;
     readonly page: number;
 };

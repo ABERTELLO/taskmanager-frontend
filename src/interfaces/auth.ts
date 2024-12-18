@@ -16,7 +16,7 @@ interface AuthStringParam {
 };
 
 export interface AuthContext {
-    readonly actions: typeof auth.actions;
+    readonly auth_actions: typeof auth.auth_actions;
     readonly auth_state: AuthState;
     readonly auth_dispatch: React.Dispatch<Action>;
 };

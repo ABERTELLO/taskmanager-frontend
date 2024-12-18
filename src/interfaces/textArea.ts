@@ -9,6 +9,8 @@ export interface TextAreaData {
 export interface TextAreaProps {
     readonly dispatch: React.Dispatch<Action>;
     readonly dispatchType: string;
+    readonly enterAction: () => void;
+    readonly escapeAction: () => void;
     readonly label: string;
     readonly ref?: React.RefObject<HTMLTextAreaElement>;
     readonly rows: number;

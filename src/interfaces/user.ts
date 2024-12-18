@@ -3,20 +3,21 @@ import user from '../contexts/user/reducer';
 
 // Resource
 import { Action } from './context';
+import { PaginationParams } from './request';
 
 
 interface UserBooleanParam {
-    readonly status: null | string;
+    readonly status: boolean;
     readonly value: boolean;
 };
 
 interface UserRoleParam {
-    readonly status: null | string;
+    readonly status: boolean;
     readonly value: UserRoles;
 };
 
 interface UserStringParam {
-    readonly status: null | string;
+    readonly status: boolean;
     readonly value: string;
 };
 
@@ -31,7 +32,7 @@ export interface UserConfirmSubscribe {
 };
 
 export interface UserContext {
-    readonly actions: typeof user.actions;
+    readonly users_actions: typeof user.users_actions;
     readonly users_state: UserState;
     readonly users_dispatch: React.Dispatch<Action>;
 };
@@ -47,8 +48,12 @@ export interface UserParams {
 export interface UserState {
     readonly confirmSubscribe: UserConfirmSubscribe;
     readonly loading: boolean;
+    readonly loadingRecordsError: { message: string, status: boolean };
+    readonly paginationParams: PaginationParams;
     readonly params: UserParams;
     readonly recordsToRender: SavedUser[];
+    readonly saveUserError: { message: string, status: boolean };
+    readonly showPasswordsInRender: boolean;
     readonly visibilityOfRestorePasswordModal: boolean;
     readonly visibilityOfSuscribeModal: boolean;
     readonly visibilityOfUnsuscribeModal: boolean;

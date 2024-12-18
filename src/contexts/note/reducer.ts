@@ -1,8 +1,11 @@
 // Common
+import helpers from '../../helpers';
 import { NoteState, NoteStatus } from '../../interfaces';
 
+const { genericExpressions } = helpers.stringHelper;
 
-enum actions {
+
+enum notes_actions {
     CLEAR_FIELD_STATUS = 'CLEAR_FIELD_STATUS',
     CLEAR_PARAMS = 'CLEAR_PARAMS',
     CLEAR_STATE = 'CLEAR_STATE',
@@ -10,7 +13,16 @@ enum actions {
     SET_COMPLETED = 'SET_COMPLETED',
     SET_CONTENT = 'SET_CONTENT',
     SET_DATE = 'SET_DATE',
+    SET_FILTER_BY_COMPLETED = 'SET_FILTER_BY_COMPLETED',
+    SET_FILTER_BY_CONTENT = 'SET_FILTER_BY_CONTENT',
+    SET_FILTER_BY_DATE = 'SET_FILTER_BY_DATE',
+    SET_FILTER_BY_REGISTRATION_DATE = 'SET_FILTER_BY_REGISTRATION_DATE',
+    SET_FILTER_BY_STATUS = 'SET_FILTER_BY_STATUS',
+    SET_FILTER_BY_TITLE = 'SET_FILTER_BY_TITLE',
     SET_LOADING = 'SET_LOADING',
+    SET_LOADING_RECORDS_ERROR = 'SET_LOADING_RECORDS_ERROR',
+    SET_PAGINATION_LIMIT = 'SET_PAGINATION_LIMIT',
+    SET_PAGINATION_PAGE = 'SET_PAGINATION_PAGE',
     SET_RECORDS_TO_RENDER = 'SET_RECORDS_TO_RENDER',
     SET_REGISTRATION_DATE = 'SET_REGISTRATION_DATE',
     SET_STATUS = 'SET_STATUS',
@@ -19,41 +31,54 @@ enum actions {
 
 const initState: NoteState = {
     loading: false,
+    loadingRecordsError: { message: '', status: false },
+    paginationParams: {
+        filters: {
+            completed: null,
+            content: null,
+            date: null,
+            registrationDate: null,
+            status: null,
+            title: null
+        },
+        limit: 7,
+        page: 1
+    },
     params: {
-        author: { status: null, value: '' },
-        completed: { status: null, value: false },
-        content: { status: null, value: '' },
-        date: { status: null, value: '' },
-        registrationDate: { status: null, value: '' },
-        status: { status: null, value: NoteStatus.regular },
-        title: { status: null, value: '' },
+        author: { status: true, value: '' },
+        completed: { status: true, value: false },
+        content: { status: true, value: '' },
+        date: { status: true, value: '' },
+        registrationDate: { status: true, value: '' },
+        status: { status: true, value: NoteStatus.regular },
+        title: { status: true, value: '' },
     },
     recordsToRender: []
 };
 
 const reducer = (state: NoteState = initState, action: any): NoteState => {
     switch (action.type) {
-        case actions.CLEAR_FIELD_STATUS:
+        case notes_actions.CLEAR_FIELD_STATUS:
             return {
                 ...state,
                 params: {
-                    author: { ...state.params.author, status: null },
-                    completed: { ...state.params.completed, status: null },
-                    content: { ...state.params.content, status: null },
-                    date: { ...state.params.date, status: null },
-                    registrationDate: { ...state.params.registrationDate, status: null },
-                    status: { ...state.params.status, status: null },
-                    title: { ...state.params.title, status: null }
+                    author: { ...state.params.author, status: true },
+                    completed: { ...state.params.completed, status: true },
+                    content: { ...state.params.content, status: true },
+                    date: { ...state.params.date, status: true },
+                    registrationDate: { ...state.params.registrationDate, status: true },
+                    status: { ...state.params.status, status: true },
+                    title: { ...state.params.title, status: true }
                 }
             };
-        case actions.CLEAR_PARAMS:
+        case notes_actions.CLEAR_PARAMS:
             return {
                 ...state,
                 params: initState.params
             };
-        case actions.CLEAR_STATE:
+        case notes_actions.CLEAR_STATE:
             return initState;
-        case actions.SET_AUTHOR:
+        case notes_actions.SET_AUTHOR:
             return {
                 ...state,
                 params: {
@@ -64,7 +89,7 @@ const reducer = (state: NoteState = initState, action: any): NoteState => {
                     }
                 }
             };
-        case actions.SET_COMPLETED:
+        case notes_actions.SET_COMPLETED:
             return {
                 ...state,
                 params: {
@@ -75,7 +100,7 @@ const reducer = (state: NoteState = initState, action: any): NoteState => {
                     }
                 }
             };
-        case actions.SET_CONTENT:
+        case notes_actions.SET_CONTENT:
             return {
                 ...state,
                 params: {
@@ -86,7 +111,7 @@ const reducer = (state: NoteState = initState, action: any): NoteState => {
                     }
                 }
             };
-        case actions.SET_DATE:
+        case notes_actions.SET_DATE:
             return {
                 ...state,
                 params: {
@@ -97,17 +122,110 @@ const reducer = (state: NoteState = initState, action: any): NoteState => {
                     }
                 }
             };
-        case actions.SET_LOADING:
+        case notes_actions.SET_FILTER_BY_COMPLETED:
+            return {
+                ...state,
+                paginationParams: {
+                    ...state.paginationParams,
+                    filters: {
+                        ...state.paginationParams.filters,
+                        completed: action.payload
+                    }
+                }
+            };
+        case notes_actions.SET_FILTER_BY_CONTENT:
+            return {
+                ...state,
+                paginationParams: {
+                    ...state.paginationParams,
+                    filters: {
+                        ...state.paginationParams.filters,
+                        content: action.payload
+                    }
+                }
+            };
+        case notes_actions.SET_FILTER_BY_DATE:
+            return {
+                ...state,
+                paginationParams: {
+                    ...state.paginationParams,
+                    filters: {
+                        ...state.paginationParams.filters,
+                        date: action.payload
+                    }
+                }
+            };
+        case notes_actions.SET_FILTER_BY_REGISTRATION_DATE:
+            return {
+                ...state,
+                paginationParams: {
+                    ...state.paginationParams,
+                    filters: {
+                        ...state.paginationParams.filters,
+                        registrationDate: action.payload
+                    }
+                }
+            };
+        case notes_actions.SET_FILTER_BY_STATUS:
+            return {
+                ...state,
+                paginationParams: {
+                    ...state.paginationParams,
+                    filters: {
+                        ...state.paginationParams.filters,
+                        status: action.payload
+                    }
+                }
+            };
+        case notes_actions.SET_FILTER_BY_TITLE:
+            return {
+                ...state,
+                paginationParams: {
+                    ...state.paginationParams,
+                    filters: {
+                        ...state.paginationParams.filters,
+                        title: action.payload
+                    }
+                }
+            };
+        case notes_actions.SET_LOADING:
             return {
                 ...state,
                 loading: action.payload
             };
-        case actions.SET_RECORDS_TO_RENDER:
+        case notes_actions.SET_LOADING_RECORDS_ERROR:
+            return {
+                ...state,
+                loadingRecordsError: {
+                    ...state.loadingRecordsError,
+                    message: action.payload
+                        ? genericExpressions.processingRecordsError
+                        : '',
+                    status: action.payload
+                }
+            };
+        case notes_actions.SET_PAGINATION_LIMIT:
+            return {
+                ...state,
+                paginationParams: {
+                    ...state.paginationParams,
+                    limit: action.payload
+                }
+            };
+        case notes_actions.SET_PAGINATION_PAGE:
+            return {
+                ...state,
+                paginationParams: {
+                    ...state.paginationParams,
+                    page: action.payload
+                }
+            };
+        case notes_actions.SET_RECORDS_TO_RENDER:
             return {
                 ...state,
                 recordsToRender: action.payload
             };
-        case actions.SET_REGISTRATION_DATE:
+        case notes_actions.SET_REGISTRATION_DATE:
             return {
                 ...state,
                 params: {
@@ -118,7 +236,7 @@ const reducer = (state: NoteState = initState, action: any): NoteState => {
                     }
                 }
             };
-        case actions.SET_STATUS:
+        case notes_actions.SET_STATUS:
             return {
                 ...state,
                 params: {
@@ -129,7 +247,7 @@ const reducer = (state: NoteState = initState, action: any): NoteState => {
                     }
                 }
             };
-        case actions.SET_TITLE:
+        case notes_actions.SET_TITLE:
             return {
                 ...state,
                 params: {
@@ -146,7 +264,7 @@ const reducer = (state: NoteState = initState, action: any): NoteState => {
 };
 
 const note = {
-    actions,
+    notes_actions,
     initState,
     reducer
 };

@@ -38,8 +38,8 @@ import {
     SavedNote
 } from './note';
 import {
+    PaginationParams,
     RequestInitDataType,
-    RequestParams,
     StateParams
 } from './request';
 import { Route } from './route';
@@ -56,6 +56,13 @@ import {
     UserRoles,
     UserState
 } from './user';
+import {
+    Cell,
+    RecordsToTable,
+    Row,
+    TableData,
+    TableProps
+} from './table';
 import {
     TextAreaData,
     TextAreaProps
@@ -82,6 +89,7 @@ export type {
     AuthState,
     ButtonData,
     ButtonProps,
+    Cell,
     ContextProps,
     FormData,
     FormProps,
@@ -92,15 +100,19 @@ export type {
     NoteContext,
     NoteParams,
     NoteState,
+    PaginationParams,
+    RecordsToTable,
     RequestInitDataType,
-    RequestParams,
     Route,
+    Row,
     SavedNote,
     SavedUser,
     SelectData,
     SelectProps,
     SelectOption,
     StateParams,
+    TableData,
+    TableProps,
     TextAreaData,
     TextAreaProps,
     UserContext,

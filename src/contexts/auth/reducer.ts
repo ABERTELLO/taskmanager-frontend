@@ -5,7 +5,7 @@ import {
 } from '../../interfaces';
 
 
-enum actions {
+enum auth_actions {
     CLEAR_FIELD_STATUS = 'CLEAR_FIELD_STATUS',
     CLEAR_LOGIN_PARAMS = 'CLEAR_LOGIN_PARAMS',
     CLEAR_REGISTRY_PARAMS = 'CLEAR_REGISTRY_PARAMS',
@@ -50,7 +50,7 @@ const initState: AuthState = {
 
 const reducer = (state: AuthState = initState, action: Action): AuthState => {
     switch (action.type) {
-        case actions.CLEAR_FIELD_STATUS:
+        case auth_actions.CLEAR_FIELD_STATUS:
             return {
                 ...state,
                 loginParams: {
@@ -65,24 +65,24 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     password: { ...state.registryParams.password, status: true }
                 }
             };
-        case actions.CLEAR_LOGIN_PARAMS:
+        case auth_actions.CLEAR_LOGIN_PARAMS:
             return {
                 ...state,
                 loginParams: initState.loginParams
             };
-        case actions.CLEAR_REGISTRY_PARAMS:
+        case auth_actions.CLEAR_REGISTRY_PARAMS:
             return {
                 ...state,
                 registryParams: initState.registryParams
             };
-        case actions.CLEAR_STATE:
+        case auth_actions.CLEAR_STATE:
             return initState;
-        case actions.SET_LOADING:
+        case auth_actions.SET_LOADING:
             return {
                 ...state,
                 loading: action.payload
             };
-        case actions.SET_LOGIN_EMAIL:
+        case auth_actions.SET_LOGIN_EMAIL:
             return {
                 ...state,
                 loginParams: {
@@ -93,7 +93,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_LOGIN_EMAIL_STATUS:
+        case auth_actions.SET_LOGIN_EMAIL_STATUS:
             return {
                 ...state,
                 loginParams: {
@@ -104,7 +104,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_LOGIN_PASSWORD:
+        case auth_actions.SET_LOGIN_PASSWORD:
             return {
                 ...state,
                 loginParams: {
@@ -115,7 +115,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_LOGIN_PASSWORD_STATUS:
+        case auth_actions.SET_LOGIN_PASSWORD_STATUS:
             return {
                 ...state,
                 loginParams: {
@@ -126,7 +126,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_LOGIN_REMEMBER_ME:
+        case auth_actions.SET_LOGIN_REMEMBER_ME:
             return {
                 ...state,
                 loginParams: {
@@ -137,39 +137,39 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_ERROR_INVALID_CREDENTIALS:
+        case auth_actions.SET_ERROR_INVALID_CREDENTIALS:
             return {
                 ...state,
                 loginError: {
                     ...state.loginError,
-                    message: 'Invalid credentials.',
-                    status: true
+                    message: action.payload ? 'Invalid credentials.' : '',
+                    status: action.payload
                 }
             };
-        case actions.SET_ERROR_PROCESSING_LOGIN:
+        case auth_actions.SET_ERROR_PROCESSING_LOGIN:
             return {
                 ...state,
                 loginError: {
                     ...state.loginError,
-                    message: 'Error processing login. Try again later.',
-                    status: true
+                    message: action.payload ? 'Error processing login. Try again later.' : '',
+                    status: action.payload
                 }
             };
-        case actions.SET_ERROR_PROCESSING_REGISTRY:
+        case auth_actions.SET_ERROR_PROCESSING_REGISTRY:
             return {
                 ...state,
                 registryError: {
                     ...state.registryError,
-                    message: 'Error processing registry. Try again later.',
-                    status: true
+                    message: action.payload ? 'Error processing registry. Try again later.' : '',
+                    status: action.payload
                 }
             };
-        case actions.SET_REFS:
+        case auth_actions.SET_REFS:
             return {
                 ...state,
                 refs: action.payload
             };
-        case actions.SET_REGISTRY_CONFIRM_EMAIL:
+        case auth_actions.SET_REGISTRY_CONFIRM_EMAIL:
             return {
                 ...state,
                 registryParams: {
@@ -180,7 +180,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_REGISTRY_CONFIRM_EMAIL_STATUS:
+        case auth_actions.SET_REGISTRY_CONFIRM_EMAIL_STATUS:
             return {
                 ...state,
                 registryParams: {
@@ -191,7 +191,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_REGISTRY_CONFIRM_PASSWORD:
+        case auth_actions.SET_REGISTRY_CONFIRM_PASSWORD:
             return {
                 ...state,
                 registryParams: {
@@ -202,7 +202,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_REGISTRY_CONFIRM_PASSWORD_STATUS:
+        case auth_actions.SET_REGISTRY_CONFIRM_PASSWORD_STATUS:
             return {
                 ...state,
                 registryParams: {
@@ -213,7 +213,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_REGISTRY_EMAIL:
+        case auth_actions.SET_REGISTRY_EMAIL:
             return {
                 ...state,
                 registryParams: {
@@ -224,7 +224,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_REGISTRY_EMAIL_STATUS:
+        case auth_actions.SET_REGISTRY_EMAIL_STATUS:
             return {
                 ...state,
                 registryParams: {
@@ -235,7 +235,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_REGISTRY_PASSWORD:
+        case auth_actions.SET_REGISTRY_PASSWORD:
             return {
                 ...state,
                 registryParams: {
@@ -246,7 +246,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
                     }
                 }
             };
-        case actions.SET_REGISTRY_PASSWORD_STATUS:
+        case auth_actions.SET_REGISTRY_PASSWORD_STATUS:
             return {
                 ...state,
                 registryParams: {
@@ -263,7 +263,7 @@ const reducer = (state: AuthState = initState, action: Action): AuthState => {
 };
 
 const auth = {
-    actions,
+    auth_actions,
     initState,
     reducer
 };
